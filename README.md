@@ -10,9 +10,10 @@ tema oscuro por defecto, tipografía Inter y JetBrains Mono, iconos Heroicons.
 
 ## Cómo verlo
 
-Doble clic en `index.html`. Eso es todo — no hay servidor, ni compilación, ni
-dependencias que instalar. Funciona igual sin conexión a internet, así que
-puedes comprimir la carpeta y enviarla por correo.
+Doble clic en `index.html` (español) o en `en/index.html` (inglés). Eso es
+todo — no hay servidor, ni compilación, ni dependencias que instalar. Funciona
+igual sin conexión a internet, así que puedes comprimir la carpeta y enviarla
+por correo.
 
 ---
 
@@ -20,8 +21,10 @@ puedes comprimir la carpeta y enviarla por correo.
 
 ```
 qubisoft-web/
-├── index.html              Toda la página: contenido, maquetas y sprite de iconos
-├── assets/
+├── index.html              Página en español (raíz)
+├── en/
+│   └── index.html          Página en inglés — misma estructura, ids y clases
+├── assets/                  Compartida por las dos páginas
 │   ├── styles.css          Tokens de color, temas claro/oscuro y componentes
 │   ├── main.js             Tema, menú, contadores, galerías, año y analítica
 │   ├── favicon.svg         Icono de pestaña
@@ -32,11 +35,42 @@ qubisoft-web/
 
 ---
 
+## El sitio es bilingüe: dos páginas, no un interruptor de JS
+
+`index.html` (español, en la raíz) y `en/index.html` (inglés) son dos páginas
+HTML **completas e independientes**, no una sola página con textos que
+cambian por JavaScript. Se decidió así, no por accidente:
+
+- **Enlaces compartibles correctos.** Si envías el enlace en español, la
+  vista previa de WhatsApp/LinkedIn sale en español; si envías el de inglés,
+  sale en inglés. Un interruptor sobre un único archivo no puede lograr eso:
+  siempre sería la misma URL.
+- **Sin destello de idioma incorrecto.** El HTML que llega al navegador ya
+  está en el idioma correcto — no depende de que cargue JavaScript primero.
+
+**Editar contenido implica tocar los dos archivos.** Si cambias un texto,
+una cifra o una captura en `index.html`, revisa si `en/index.html` también
+necesita el cambio (la traducción correspondiente, o la misma cifra si es un
+dato verificado como 216/6/121).
+
+El selector `ES | EN` de la barra de navegación es un `<a>` normal, sin
+JavaScript: en `index.html` apunta a `en/index.html`, y en `en/index.html`
+apunta de vuelta a `../index.html`. `assets/` no se duplica — ambas páginas
+la comparten mediante `../assets/...` desde `en/`.
+
+**`assets/main.js` no tiene texto en español ni en inglés.** Las leyendas de
+las galerías (`#shots`, `#shots-contab`) se leen del atributo `data-cap` de
+cada botón `role="tab"` en el HTML, no de una lista dentro del JS — así cada
+idioma trae sus propias leyendas sin tocar el script. Si añades una pantalla
+nueva a una galería, ponle su `data-cap` en las dos páginas.
+
+---
+
 ## Qué editar
 
 | Quiero cambiar… | Está en… |
 |---|---|
-| Textos, títulos, bullets de cada producto | `index.html`, secciones `#producto-1` … `#producto-4` |
+| Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-4` |
 | El índice de productos (las tarjetas 01–04) | `index.html`, lista `.pindex` |
 | Estado de un producto (En producción / Prototipo) | `index.html`, la píldora dentro de `.product__bar` |
 | Las cifras de la banda de métricas | `index.html`, `.metrics__grid` — cambia el `data-count` **y** el texto visible |
@@ -133,17 +167,23 @@ Las ocho pantallas suman unos 530 KB (tres tamaños cada una, igual que el ERP).
 ## `initShots()` ahora soporta varias galerías
 
 En `assets/main.js`, la función dejó de estar atada a un único `#shots` /
-`#viewer`. Ahora `initGaleria(containerId, pantallas)` puede llamarse una vez
-por producto — hoy hay dos, `shots` (ERP) y `shots-contab` (Contabilízate) —
-y todas comparten el mismo `<dialog id="viewer">`. Si añades una galería a
+`#viewer`. Ahora `initGaleria(containerId)` puede llamarse una vez por
+producto — hoy hay dos, `shots` (ERP) y `shots-contab` (Contabilízate) — y
+todas comparten el mismo `<dialog id="viewer">`. Si añades una galería a
 otro producto:
 
 1. Duplica el bloque `<figure class="shots" id="shots-...">` del HTML con un
-   id nuevo y sus propias imágenes en `assets/capturas/`.
-2. Añade una llamada más a `initGaleria('shots-...', [...])` dentro de
-   `initShots()`, con la lista de pantallas de ese producto.
+   id nuevo y sus propias imágenes en `assets/capturas/`, con `data-cap="..."`
+   en cada botón de la tira (la leyenda completa que se ve arriba y en el
+   visor). Hazlo en `index.html` y en `en/index.html`, cada una con su idioma.
+2. Añade una llamada más a `initGaleria('shots-...')` dentro de `initShots()`
+   — sin lista de pantallas: `initGaleria` la arma sola leyendo la tira del
+   HTML (`data-cap` de cada botón y la ruta de cada miniatura).
 
-No hace falta tocar el `<dialog>` ni sus controles: son compartidos.
+No hace falta tocar el `<dialog>` ni sus controles: son compartidos. Y no
+hace falta tocar el JS por idioma: las rutas de imagen se calculan a partir
+del `src` ya resuelto de cada miniatura (funciona igual desde la raíz que
+desde `en/`), y las leyendas salen del `data-cap` de cada página.
 
 ## Por qué no hay banner de cookies
 
@@ -271,10 +311,16 @@ Tres cosas que conviene revisar:
    en Azure, GCP u Oracle, súmalas a esa línea. Mientras tanto, no la toques:
    afirmar experiencia que no tienes se cae en la primera reunión técnica.
 
-5. **Orion Facturación aparece como «Prototipo funcional»**, no como «En
-   producción». Es lo correcto: `facturas/backend/config/settings.py` tiene
-   `DEBUG = True`, `SECRET_KEY` de desarrollo, SQLite y la API sin
-   autenticación. Cuando lo endurezcas y lo despliegues, cambia la píldora.
+5. **Orion Facturación dice «En producción»**, aunque
+   `facturas/backend/config/settings.py` sigue con `DEBUG = True`,
+   `SECRET_KEY` de desarrollo, SQLite y la API sin autenticación. Adrián
+   confirmó dejarlo así por ahora; existe la clase `.pill--proto` en
+   `styles.css` para volver a «Prototipo funcional» (ambos idiomas) el día
+   que se decida endurecer el backend antes de esa etiqueta.
+
+6. **Editar contenido en dos páginas.** Cualquier cambio de texto, cifra o
+   captura debe revisarse tanto en `index.html` como en `en/index.html` — no
+   hay una fuente única que las genere a las dos.
 
 ---
 

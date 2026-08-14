@@ -210,9 +210,9 @@
 
     function refrescarVisor() {
       var p = abierta.pantallas[abierta.actual];
-      vImg.src = 'assets/capturas/' + p[0] + '.jpg';
-      vImg.alt = p[1];
-      vCap.textContent = p[1];
+      vImg.src = p.full;
+      vImg.alt = p.cap;
+      vCap.textContent = p.cap;
       vNum.textContent = (abierta.actual + 1) + ' / ' + abierta.pantallas.length;
     }
 
@@ -246,8 +246,12 @@
     }
 
     // Instancia una galería (tira + destacada) dentro del contenedor indicado
-    // y la conecta al visor compartido.
-    function initGaleria(containerId, pantallas) {
+    // y la conecta al visor compartido. Las rutas y leyendas se leen del
+    // propio HTML (miniatura + data-cap), no de una lista aparte en el JS:
+    // así cada idioma trae sus leyendas en su propia página, y las rutas
+    // funcionan igual desde la raíz que desde en/, porque img.src ya viene
+    // resuelto por el navegador a una URL absoluta.
+    function initGaleria(containerId) {
       var shots = document.getElementById(containerId);
       if (!shots) return;
 
@@ -257,12 +261,22 @@
       var tabs = shots.querySelectorAll('.shots__strip button');
       var actual = 0;
 
+      var pantallas = [];
+      for (var i = 0; i < tabs.length; i++) {
+        var thumb = tabs[i].querySelector('img');
+        pantallas.push({
+          mini: thumb.src.replace(/-t\.jpg$/, '-mini.jpg'),
+          full: thumb.src.replace(/-t\.jpg$/, '.jpg'),
+          cap:  tabs[i].getAttribute('data-cap') || thumb.alt
+        });
+      }
+
       function destacar(i) {
         actual = (i + pantallas.length) % pantallas.length;
         var p = pantallas[actual];
-        mainImg.src = 'assets/capturas/' + p[0] + '-mini.jpg';
-        mainImg.alt = p[1];
-        mainCap.textContent = p[1];
+        mainImg.src = p.mini;
+        mainImg.alt = p.cap;
+        mainCap.textContent = p.cap;
         for (var i2 = 0; i2 < tabs.length; i2++) {
           tabs[i2].setAttribute('aria-selected', String(i2 === actual));
         }
@@ -287,33 +301,8 @@
       });
     }
 
-    // El segundo valor es el texto completo del rótulo: cada producto decide
-    // si lleva su propio prefijo (las fotos de obra del ERP no llevan "Orion
-    // ERP ·" porque no son parte de la interfaz).
-    initGaleria('shots', [
-      ['panel',           'Orion ERP · Panel principal'],
-      ['cotizaciones',    'Orion ERP · Gestión de cotizaciones'],
-      ['historial',       'Orion ERP · Historial de cambios'],
-      ['presupuesto',     'Orion ERP · Presupuesto de proyecto'],
-      ['materiales',      'Orion ERP · Materiales del proyecto'],
-      ['compras',         'Orion ERP · Solicitudes de compra'],
-      ['items',           'Orion ERP · Catálogo de ítems'],
-      ['stock',           'Orion ERP · Stock por ubicación'],
-      ['obra-estructura', 'Obra · Estructura metálica'],
-      ['obra-montaje',    'Obra · Montaje de vigas'],
-      ['obra-losa',       'Obra · Losa de cubierta']
-    ]);
-
-    initGaleria('shots-contab', [
-      ['contab-login',       'Contabilízate · Inicio de sesión'],
-      ['contab-panel',       'Contabilízate · Panel de control'],
-      ['contab-ingresos',    'Contabilízate · Registro de ingresos'],
-      ['contab-tipo-egreso', 'Contabilízate · Tipo de egreso'],
-      ['contab-egreso',      'Contabilízate · Registro de egresos'],
-      ['contab-categorias',  'Contabilízate · Categorías de gasto'],
-      ['contab-ia',          'Contabilízate · Suscripciones IA'],
-      ['contab-2fa',         'Contabilízate · Verificación en dos pasos']
-    ]);
+    initGaleria('shots');
+    initGaleria('shots-contab');
   }
 
   /* ---------- Año en curso ----------

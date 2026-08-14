@@ -150,6 +150,21 @@ img,svg { max-width:100%; }
 .icon-btn:hover { background:var(--surface-hover); border-color:var(--p-600); }
 .icon-btn .ico { width:19px; height:19px; }
 
+/* Selector de idioma: enlace normal a la otra página, no un interruptor de
+   JS — así cada idioma tiene su propia URL compartible. */
+.lang-toggle {
+  display:inline-flex; align-items:center; gap:.4rem;
+  height:40px; padding:0 .8rem;
+  border-radius:var(--r-sm); border:1px solid var(--border);
+  background:var(--surface);
+  font-size:.78rem; font-weight:700; letter-spacing:.02em;
+  transition:background-color .2s, border-color .2s;
+}
+.lang-toggle:hover { background:var(--surface-hover); border-color:var(--p-600); }
+.lang-toggle__on  { color:var(--text); }
+.lang-toggle__off { color:var(--text-2); font-weight:600; }
+.lang-toggle__sep { color:var(--border); }
+
 /* ---------- Tarjeta ---------- */
 .card {
   background:var(--surface);
