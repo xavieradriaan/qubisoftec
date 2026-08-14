@@ -23,7 +23,7 @@ qubisoft-web/
 ├── index.html              Toda la página: contenido, maquetas y sprite de iconos
 ├── assets/
 │   ├── styles.css          Tokens de color, temas claro/oscuro y componentes
-│   ├── main.js             Tema, menú móvil, contadores y año del pie
+│   ├── main.js             Tema, menú, contadores, galerías, año y analítica
 │   ├── favicon.svg         Icono de pestaña
 │   ├── logo-qubisoft.svg   Isotipo (por si lo necesitas suelto: firmas, redes)
 │   └── fonts/              Inter y JetBrains Mono en .woff2, auto-alojadas
@@ -51,6 +51,8 @@ qubisoft-web/
 | Color de acento de cada producto | `assets/styles.css`, clases `.acc-erp`, `.acc-bio`, `.acc-fin`, `.acc-doc` |
 | Tema por defecto | El script en el `<head>` de `index.html` |
 | Preguntas frecuentes | `index.html`, sección `#faq` |
+| El aviso de privacidad | `index.html`, `<dialog id="privacidad">` |
+| Activar analítica de visitas | `assets/main.js`, `var CF_TOKEN` — ver abajo |
 
 Los colores están declarados una sola vez como variables CSS. Cambiar
 `--p-600` cambia la marca en toda la página.
@@ -142,6 +144,55 @@ otro producto:
    `initShots()`, con la lista de pantallas de ese producto.
 
 No hace falta tocar el `<dialog>` ni sus controles: son compartidos.
+
+## Por qué no hay banner de cookies
+
+Porque el sitio **no usa cookies**. Comprobado sobre el código: cero llamadas a
+`document.cookie`, y lo único que se guarda en el navegador es
+`localStorage['qubisoft_theme']` — tu preferencia de tema claro/oscuro, que no
+identifica a nadie y no sale del equipo del visitante.
+
+Ese aviso de «Aceptar todo / Rechazar todo» que se ve en tantas páginas es una
+**obligación legal que se dispara al rastrear**, no un sello de profesionalismo.
+Aparece porque esos sitios cargan Google Analytics, píxeles publicitarios o
+contenido personalizado. Aquí no hay nada de eso, así que no hay nada que
+consentir. Un banner decorativo que no controla nada sería, además,
+consentimiento inválido bajo la LOPDP ecuatoriana.
+
+En su lugar hay un **aviso de privacidad honesto**, enlazado desde el pie: dice
+qué se guarda, qué mide la analítica y qué no se hace. Para una empresa de
+software eso vende mejor que la ventana que todo el mundo cierra con fastidio.
+
+## Activar la analítica de visitas
+
+El sitio trae lista la integración con **Cloudflare Web Analytics**: gratuita,
+sin cookies, sin `localStorage` y sin huella digital del visitante — por eso no
+obliga a pedir consentimiento. Está **apagada** hasta que pongas el token.
+
+Para encenderla:
+
+1. Entra a [dash.cloudflare.com](https://dash.cloudflare.com) y crea una cuenta
+   gratuita si no la tienes.
+2. Ve a **Analytics & Logs → Web Analytics** y pulsa **Add a site**.
+3. Pon el dominio del sitio (`xavieradriaan.github.io`).
+4. Copia el token que aparece en el fragmento que te muestra.
+5. Pégalo en `assets/main.js`, en la constante del principio del bloque de
+   analítica:
+
+```js
+var CF_TOKEN = 'aquí-va-tu-token';
+```
+
+6. `git add . && git commit -m "Activar analítica" && git push` — GitHub Pages
+   reconstruye solo en 1-2 minutos.
+
+**Mientras el token esté vacío**, el beacon no se inyecta y el sitio conserva su
+propiedad de **cero peticiones externas**: verificado interceptando el tráfico
+real del navegador, no solo leyendo el código. Abierto sin conexión (el ZIP por
+correo) tampoco intenta contactar a nadie.
+
+Lo que verás en el panel: visitas, visitantes únicos, países, páginas más vistas
+y de dónde llegan. Nada que permita identificar a una persona concreta.
 
 ## El año se actualiza solo
 

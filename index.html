@@ -764,9 +764,11 @@
       <a href="#proceso">Proceso</a>
       <a href="#faq">Preguntas</a>
       <a href="#contacto">Contacto</a>
+      <a href="#privacidad" id="privacidad-abrir">Privacidad</a>
     </nav>
     <p class="foot__legal">
-      © <span data-year>2026</span> Qubisoft. Todos los derechos reservados.
+      © <span data-year>2026</span> Qubisoft. Todos los derechos reservados.<br>
+      Este sitio no usa cookies ni rastrea a sus visitantes.
     </p>
   </div>
 </footer>
@@ -785,6 +787,50 @@
     <button class="viewer__close" id="viewer-close" type="button" aria-label="Cerrar">
       <svg class="ico"><use href="#i-close"/></svg>
     </button>
+  </div>
+</dialog>
+
+<!-- Aviso de privacidad. No es un banner de consentimiento: el sitio no usa
+     cookies, así que no hay nada que consentir. Es informativo y se abre solo
+     si el visitante lo pide desde el pie. -->
+<dialog class="aviso" id="privacidad" aria-labelledby="privacidad-titulo">
+  <div class="aviso__inner">
+    <button class="aviso__close" id="privacidad-cerrar" type="button" aria-label="Cerrar">
+      <svg class="ico"><use href="#i-close"/></svg>
+    </button>
+
+    <h2 id="privacidad-titulo">Privacidad</h2>
+    <p class="aviso__lead">
+      Este sitio no usa cookies, no muestra publicidad y no construye perfiles de quienes
+      lo visitan. Por eso no verás la ventana de «Aceptar todo»: no hay nada que consentir.
+    </p>
+
+    <h3>Lo único que se guarda en tu navegador</h3>
+    <p>
+      Si cambias entre tema claro y oscuro, esa preferencia queda guardada en tu propio
+      navegador para recordarla la próxima vez. No sale de tu equipo y no identifica a nadie.
+      Puedes borrarla vaciando los datos del sitio.
+    </p>
+
+    <h3>Medición de visitas</h3>
+    <p>
+      Usamos Cloudflare Web Analytics, que según su documentación no emplea cookies,
+      ni almacenamiento en el navegador, ni huella digital del visitante. Solo nos indica
+      datos agregados: cuántas visitas hubo, desde qué país y qué secciones se consultan más.
+      No permite saber quién eres ni seguirte a otros sitios.
+    </p>
+
+    <h3>Lo que no hacemos</h3>
+    <ul class="aviso__lista">
+      <li><svg class="ico"><use href="#i-check"/></svg><span>No instalamos cookies de ningún tipo.</span></li>
+      <li><svg class="ico"><use href="#i-check"/></svg><span>No mostramos publicidad ni contenido personalizado.</span></li>
+      <li><svg class="ico"><use href="#i-check"/></svg><span>No vendemos ni compartimos datos con terceros.</span></li>
+      <li><svg class="ico"><use href="#i-check"/></svg><span>No hay formularios: escribes por correo o WhatsApp cuando tú decides.</span></li>
+    </ul>
+
+    <p class="aviso__pie">
+      ¿Dudas sobre esto? Escríbenos a <a href="mailto:info@qubisoft.com">info@qubisoft.com</a>.
+    </p>
   </div>
 </dialog>
 

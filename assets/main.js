@@ -329,10 +329,63 @@
     }
   }
 
+  /* ---------- Analítica de visitas ----------
+     Cloudflare Web Analytics: gratuita y sin cookies. Según su documentación no
+     usa cookies ni localStorage ni huella digital del visitante, así que no
+     hace falta pedir consentimiento — por eso este sitio no lleva el típico
+     banner de cookies: no hay nada que consentir.
+
+     El beacon SOLO se inyecta si hay token. Mientras esté vacío, el sitio
+     conserva su propiedad de cero peticiones externas, y abierto sin conexión
+     (el ZIP por correo) no intenta cargar nada. Para activarlo, pega aquí el
+     token que da el panel de Cloudflare; no hay que tocar nada más. */
+  var CF_TOKEN = '';
+
+  function initAnalytics() {
+    if (!CF_TOKEN) return;
+    var s = document.createElement('script');
+    s.defer = true;
+    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    s.setAttribute('data-cf-beacon', '{"token": "' + CF_TOKEN + '"}');
+    document.body.appendChild(s);
+  }
+
+  /* ---------- Aviso de privacidad ----------
+     Mismo patrón que el visor de capturas: <dialog> nativo, así Escape y el
+     foco los gestiona el navegador. */
+  function initPrivacidad() {
+    var dlg = document.getElementById('privacidad');
+    var abrir = document.getElementById('privacidad-abrir');
+    if (!dlg || !abrir) return;
+
+    // Sin <dialog> (navegadores antiguos) el enlace no hace nada raro: se deja
+    // que el navegador salte al ancla y el contenido igual queda accesible.
+    if (typeof dlg.showModal !== 'function') return;
+
+    abrir.addEventListener('click', function (e) {
+      e.preventDefault();
+      dlg.showModal();
+    });
+
+    var cerrar = document.getElementById('privacidad-cerrar');
+    if (cerrar) cerrar.addEventListener('click', function () { dlg.close(); });
+
+    // Clic en el fondo oscuro: el <dialog> ocupa toda la pantalla, así que se
+    // comprueba que el punto pulsado quede fuera de la tarjeta.
+    dlg.addEventListener('click', function (e) {
+      var caja = dlg.querySelector('.aviso__inner').getBoundingClientRect();
+      var fuera = e.clientX < caja.left || e.clientX > caja.right ||
+                  e.clientY < caja.top  || e.clientY > caja.bottom;
+      if (fuera) dlg.close();
+    });
+  }
+
   initTheme();
   initMobileNav();
   initCounters();
   initSpotlight();
   initShots();
   initYear();
+  initPrivacidad();
+  initAnalytics();
 })();

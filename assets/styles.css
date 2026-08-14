@@ -607,6 +607,46 @@ img,svg { max-width:100%; }
   .viewer__cap { font-size:.78rem; }
 }
 
+/* ---------- Aviso de privacidad ----------
+   Mismo lenguaje visual que el visor de capturas, pero con contenido de texto:
+   ancho de lectura acotado y desplazamiento interno si no cabe. */
+.aviso {
+  width:min(640px, 92vw); max-width:none; max-height:88vh;
+  padding:0; border:0; background:none; overflow:visible;
+  color:var(--text);
+}
+.aviso::backdrop { background:rgba(8,11,20,.86); backdrop-filter:blur(3px); }
+.aviso__inner {
+  position:relative; max-height:88vh; overflow-y:auto;
+  padding:clamp(1.5rem, 4vw, 2.25rem);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r-lg); box-shadow:var(--shadow-md);
+}
+.aviso__inner h2 { font-size:1.35rem; margin-bottom:.85rem; padding-right:2.5rem; }
+.aviso__inner h3 {
+  font-size:.78rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--p-400); margin:1.6rem 0 .5rem;
+}
+.aviso__inner p { font-size:.9rem; color:var(--text-2); line-height:1.65; }
+.aviso__lead { color:var(--text); }
+.aviso__lista { display:grid; gap:.55rem; margin-top:.2rem; }
+.aviso__lista li { display:flex; gap:.6rem; font-size:.88rem; color:var(--text-2); line-height:1.55; }
+.aviso__lista .ico { width:16px; height:16px; margin-top:.2rem; color:var(--success); stroke-width:2.4; }
+.aviso__pie {
+  margin-top:1.6rem; padding-top:1.1rem; border-top:1px solid var(--border);
+  font-size:.85rem;
+}
+.aviso__pie a { color:var(--p-400); font-weight:600; }
+.aviso__close {
+  position:absolute; top:.9rem; right:.9rem;
+  display:grid; place-items:center; width:36px; height:36px;
+  border-radius:50%; cursor:pointer;
+  border:1px solid var(--border); background:var(--surface-2); color:var(--text);
+  transition:background-color .2s, border-color .2s;
+}
+.aviso__close:hover { background:var(--p-600); border-color:var(--p-600); color:#fff; }
+.aviso__close .ico { width:17px; height:17px; }
+
 /* ---------- Caso destacado ---------- */
 .case { display:grid; grid-template-columns:1fr; gap:1.25rem; }
 @media (min-width: 820px) { .case { grid-template-columns:repeat(3,1fr); } }
