@@ -338,13 +338,17 @@
      El beacon SOLO se inyecta si hay token. Mientras esté vacío, el sitio
      conserva su propiedad de cero peticiones externas, y abierto sin conexión
      (el ZIP por correo) no intenta cargar nada. Para activarlo, pega aquí el
-     token que da el panel de Cloudflare; no hay que tocar nada más. */
-  var CF_TOKEN = '';
+     token que da el panel de Cloudflare; no hay que tocar nada más.
+
+     El token no es secreto: viaja visible en el HTML de cualquier sitio que
+     use este mismo servicio, igual que el ID de medición de Google Analytics.
+     Solo identifica a qué sitio pertenecen los datos, no autoriza nada más. */
+  var CF_TOKEN = '26413ba3165a49d29fbe3fa259bb0640';
 
   function initAnalytics() {
     if (!CF_TOKEN) return;
     var s = document.createElement('script');
-    s.defer = true;
+    s.type = 'module';   // mismo atributo que entrega el panel de Cloudflare
     s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
     s.setAttribute('data-cf-beacon', '{"token": "' + CF_TOKEN + '"}');
     document.body.appendChild(s);
