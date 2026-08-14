@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Qubisoft">
+  <defs>
+    <linearGradient id="qbrand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#9f75ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="104" ry="104" fill="url(#qbrand)"/>
+  <g transform="translate(103 103) scale(12.75)" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/>
+  </g>
+</svg>
