@@ -666,7 +666,6 @@ img,svg { max-width:100%; }
 .case { display:grid; grid-template-columns:1fr; gap:1.25rem; }
 @media (min-width: 820px) { .case { grid-template-columns:repeat(3,1fr); } }
 .case__col { padding:1.6rem; display:grid; gap:.7rem; align-content:start; }
-.case__step { font-size:.72rem; font-weight:600; color:var(--p-400); letter-spacing:.1em; }
 .case__col p { color:var(--text-2); font-size:.92rem; }
 .case__list { display:grid; gap:.6rem; font-size:.9rem; color:var(--text-2); }
 .case__list li { display:flex; align-items:baseline; gap:.6rem; }
