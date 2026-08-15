@@ -179,9 +179,11 @@
   <div class="wrap">
     <div class="metrics__grid" id="metrics">
       <div class="metric">
-        <!-- 216 = 174 ERP + 22 Biometría + 19 Contabilízate + 1 Facturación.
-             Contado sobre los repositorios; si cambian las apps, hay que recontar. -->
-        <b class="num" data-count="216">216</b>
+        <!-- 112 proyectos y 46 clientes salen del historial de trabajo de Adrián,
+             que vive en otro repositorio (no en las cuatro apps de este sitio).
+             Si cambian, hay que actualizar el número Y el texto visible: el
+             data-count es el destino del conteo animado. -->
+        <b class="num" data-count="112">112</b>
         <small>Proyectos de software trabajados</small>
         <ul class="metric__glyphs" aria-hidden="true">
           <li style="--d:0"><svg class="ico"><use href="#i-cube"/></svg></li>
@@ -190,7 +192,7 @@
           <li style="--d:3"><svg class="ico"><use href="#i-doc"/></svg></li>
         </ul>
       </div>
-      <div class="metric"><b class="num" data-count="6">6</b><small>Módulos integrados en un solo flujo de trabajo</small></div>
+      <div class="metric"><b class="num" data-count="46">46</b><small>Clientes</small></div>
       <div class="metric"><b class="num" data-count="121">121</b><small>Automatizaciones que reemplazan avisos manuales</small></div>
     </div>
   </div>
@@ -425,7 +427,7 @@
           </div>
 
           <dl class="pmeta">
-            <div><dt>Para quién</dt><dd>Personas que administran varias tarjetas de crédito</dd></div>
+            <div><dt>Para quién</dt><dd>Personas que gestionan sus ingresos, egresos y tarjetas de crédito</dd></div>
             <div><dt>Qué resuelve</dt><dd>Desconocer el monto real a pagar cada mes</dd></div>
             <div><dt>Alcance</dt><dd>Ingresos, egresos, tarjetas y diferidos</dd></div>
           </dl>
@@ -505,18 +507,27 @@
           </ul>
         </div>
 
-        <div class="product__art" aria-hidden="true">
-          <div class="mock mock--mini">
-            <div class="sheet">
-              <div class="sheet__band"><b>PROFORMA</b><span class="mono">PRO-000184</span></div>
-              <div class="sheet__rows">
-                <div><span>Instalación de red</span><b class="mono">$ 1.850,00</b></div>
-                <div><span>Materiales</span><b class="mono">$ 640,00</b></div>
-                <div><span>Mano de obra</span><b class="mono">$ 420,00</b></div>
-              </div>
-              <div class="sheet__total"><span>TOTAL USD</span><b class="mono">$ 3.344,00</b></div>
-            </div>
-          </div>
+        <!-- Capturas reales del sistema. Aquí no hizo falta redactar nada: el
+             formulario está vacío (los campos de cliente son marcadores de
+             posición), el RUC del encabezado es de relleno y el teléfono y el
+             correo son los de Qubisoft, ya publicados en la sección de contacto.
+             Las dos se recortaron para que sean contiguas: lo que termina la
+             primera lo continúa la segunda, sin repetir contenido. -->
+        <div class="product__art">
+          <figure class="shots" id="shots-fact">
+            <button class="shots__main" type="button" data-open="0">
+              <span class="mock__bar" aria-hidden="true"><span></span><span></span><span></span><em class="shots__cap">Orion Facturación · Datos del cliente</em></span>
+              <img class="shots__img" src="assets/capturas/fact-datos-mini.jpg" width="760" height="465"
+                   alt="Formulario de creación de proforma con los datos del cliente" loading="lazy" decoding="async">
+              <span class="shots__cue"><svg class="ico"><use href="#i-expand"/></svg> Ampliar</span>
+            </button>
+
+            <ul class="shots__strip" role="tablist" aria-label="Pantallas de Orion Facturación">
+              <li><button type="button" role="tab" aria-selected="true"  data-i="0" data-cap="Orion Facturación · Datos del cliente"><img src="assets/capturas/fact-datos-t.jpg"   width="260" height="159" alt="Datos del cliente" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Orion Facturación · Ítems y totales"><img src="assets/capturas/fact-totales-t.jpg" width="260" height="159" alt="Ítems y totales" loading="lazy"></button></li>
+            </ul>
+            <figcaption class="shots__note">El sistema en producción</figcaption>
+          </figure>
         </div>
       </div>
     </article>

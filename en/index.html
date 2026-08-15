@@ -179,10 +179,12 @@
   <div class="wrap">
     <div class="metrics__grid" id="metrics">
       <div class="metric">
-        <!-- 216 = 174 ERP + 22 Biometría + 19 Contabilízate + 1 Facturación.
-             Counted from the repositories; recount if the apps change. -->
-        <b class="num" data-count="216">216</b>
-        <small>UI components built across the four systems</small>
+        <!-- 112 projects and 46 clients come from Adrián's work history, which
+             lives in a different repository (not the four apps on this site).
+             If they change, update the number AND the visible text: data-count
+             is the target of the animated count. -->
+        <b class="num" data-count="112">112</b>
+        <small>Software projects worked on</small>
         <ul class="metric__glyphs" aria-hidden="true">
           <li style="--d:0"><svg class="ico"><use href="#i-cube"/></svg></li>
           <li style="--d:1"><svg class="ico"><use href="#i-finger"/></svg></li>
@@ -190,7 +192,7 @@
           <li style="--d:3"><svg class="ico"><use href="#i-doc"/></svg></li>
         </ul>
       </div>
-      <div class="metric"><b class="num" data-count="6">6</b><small>Integrated modules working as a single workflow</small></div>
+      <div class="metric"><b class="num" data-count="46">46</b><small>Clients</small></div>
       <div class="metric"><b class="num" data-count="121">121</b><small>Automations that replace manual notices</small></div>
     </div>
   </div>
@@ -505,18 +507,27 @@
           </ul>
         </div>
 
-        <div class="product__art" aria-hidden="true">
-          <div class="mock mock--mini">
-            <div class="sheet">
-              <div class="sheet__band"><b>PROFORMA</b><span class="mono">PRO-000184</span></div>
-              <div class="sheet__rows">
-                <div><span>Network installation</span><b class="mono">$ 1,850.00</b></div>
-                <div><span>Materials</span><b class="mono">$ 640.00</b></div>
-                <div><span>Labor</span><b class="mono">$ 420.00</b></div>
-              </div>
-              <div class="sheet__total"><span>TOTAL USD</span><b class="mono">$ 3,344.00</b></div>
-            </div>
-          </div>
+        <!-- Real screenshots of the system. No redaction was needed here: the
+             form is empty (the client fields are placeholders), the RUC in the
+             header is filler, and the phone and email are Qubisoft's own,
+             already published in the contact section. The two shots were
+             cropped to be contiguous: where the first one ends, the second
+             picks up, with no repeated content. -->
+        <div class="product__art">
+          <figure class="shots" id="shots-fact">
+            <button class="shots__main" type="button" data-open="0">
+              <span class="mock__bar" aria-hidden="true"><span></span><span></span><span></span><em class="shots__cap">Orion Facturación · Client details</em></span>
+              <img class="shots__img" src="../assets/capturas/fact-datos-mini.jpg" width="760" height="465"
+                   alt="Quote creation form showing the client details section" loading="lazy" decoding="async">
+              <span class="shots__cue"><svg class="ico"><use href="#i-expand"/></svg> Expand</span>
+            </button>
+
+            <ul class="shots__strip" role="tablist" aria-label="Orion Facturación screens">
+              <li><button type="button" role="tab" aria-selected="true"  data-i="0" data-cap="Orion Facturación · Client details"><img src="../assets/capturas/fact-datos-t.jpg"   width="260" height="159" alt="Client details" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Orion Facturación · Items and totals"><img src="../assets/capturas/fact-totales-t.jpg" width="260" height="159" alt="Items and totals" loading="lazy"></button></li>
+            </ul>
+            <figcaption class="shots__note">The system in production</figcaption>
+          </figure>
         </div>
       </div>
     </article>

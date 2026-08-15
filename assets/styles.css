@@ -385,39 +385,6 @@ img,svg { max-width:100%; }
 .phone__tabs i { width:26px; height:4px; border-radius:2px; background:var(--border); }
 .phone__tabs i.on { background:var(--p-500); }
 
-/* Maquetas compactas */
-.mock--mini { padding:1rem; display:flex; align-items:center; gap:1.1rem; flex-wrap:wrap; }
-.donut {
-  position:relative; width:96px; height:96px; flex:none; border-radius:50%;
-  background:conic-gradient(var(--p-600) 0 55%, var(--p-400) 55% 82%, var(--p-200) 82% 100%);
-  display:grid; place-items:center;
-}
-.donut__hole {
-  width:62px; height:62px; border-radius:50%; background:var(--surface);
-  display:grid; place-items:center; font-size:.85rem; font-weight:600;
-}
-.legend { display:grid; gap:.4rem; font-size:.72rem; color:var(--text-2); min-width:0; }
-.legend li { display:flex; align-items:center; gap:.45rem; }
-.legend i { width:9px; height:9px; border-radius:2px; flex:none; }
-.legend b { margin-left:auto; color:var(--text); font-weight:600; padding-left:.5rem; }
-
-.sheet { width:100%; border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; }
-.sheet__band {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:.55rem .75rem; background-image:var(--brand-gradient); color:#fff;
-  font-size:.7rem; letter-spacing:.1em;
-}
-.sheet__rows { display:grid; }
-.sheet__rows div {
-  display:flex; justify-content:space-between; gap:.75rem;
-  padding:.45rem .75rem; font-size:.72rem; border-bottom:1px solid var(--border-soft); color:var(--text-2);
-}
-.sheet__rows div b { color:var(--text); }
-.sheet__total {
-  display:flex; justify-content:space-between; gap:.75rem;
-  padding:.6rem .75rem; background:var(--surface-2); font-size:.75rem; font-weight:600;
-}
-
 /* ---------- Métricas ---------- */
 /* Sin espacio inferior: la banda se apoya sobre el aire de la sección siguiente. */
 .metrics { padding-block:0; }
@@ -515,6 +482,11 @@ img,svg { max-width:100%; }
   .product--compact .product__grid { grid-template-columns:1.35fr .65fr; }
   .product--flip .product__copy { order:2; }
   .product--flip .product__art  { order:1; }
+  /* Con --flip el arte pasa a la primera columna, así que las proporciones de
+     --compact hay que invertirlas: si no, el arte se queda con la columna ancha
+     y el texto se apretuja (la tabla «para quién / qué resuelve» se parte en
+     cuatro líneas por celda). Hoy solo lo usa Orion Facturación. */
+  .product--compact.product--flip .product__grid { grid-template-columns:.65fr 1.35fr; }
 }
 .product__title { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; }
 /* Morado fijo, no --accent-ink: con el acento de Contabilízate (oro) el tagline
@@ -901,7 +873,4 @@ img,svg { max-width:100%; }
   .mock--app .mock__body { min-height:0; }
   .mock__kpis { grid-template-columns:1fr; }
   .mock__side { display:none; }
-  .legend b { margin-left:0; }
-  .mock--mini { flex-direction:column; align-items:flex-start; }
-  .donut { margin-inline:auto; }
 }

@@ -164,13 +164,49 @@ ilegible, así que `.product--compact .shots__strip` la reduce a 2 columnas.
 
 Las ocho pantallas suman unos 530 KB (tres tamaños cada una, igual que el ERP).
 
+## Las capturas de Orion Facturación
+
+Dos pantallas del formulario «Crear proforma», sacadas de `1.png` y `2.png`.
+Los originales están en `Documents/proformas-originales/`, fuera de esta carpeta:
+pesaban 3,3 MB entre las dos, más que todo el resto del sitio junto.
+
+**Aquí no hizo falta redactar nada**, y conviene dejar dicho por qué, para que
+nadie lo lea como un descuido frente al cuidado que se puso con el ERP y
+Contabilízate:
+
+- Los campos de cliente están **vacíos**: lo que se ve son marcadores de posición
+  («Nombre del cliente», «RUC del cliente»), no datos de nadie.
+- El `RUC: 0999999999001` del encabezado es de relleno.
+- El teléfono y el correo son los **de Qubisoft**, ya publicados en la sección de
+  contacto de este mismo sitio.
+
+**El recorte no es cosmético.** Las dos capturas eran dos posiciones de scroll de
+la *misma* pantalla, con ~40 % de contenido repetido: publicadas tal cual, la tira
+habría mostrado dos miniaturas casi idénticas. Se recortaron para que sean
+**contiguas** — la primera termina en la fila IVA/Dirección y la segunda arranca
+justo en ÍTEMS — de modo que juntas cubren el formulario completo sin repetir
+nada. Los bordes de la tarjeta se detectaron por barrido de píxeles, no a ojo:
+`x 552→2471` en las dos, con un desfase de 819 px entre ellas.
+
+Ambas se exportaron con la **misma relación de aspecto** (1920×1175 → 1,634), que
+es condición para que la fila de la tira quede pareja. Salen algo más altas que
+las del ERP y Contabilízate (1,895), pero como cada galería vive en su propia
+ficha, no se comparan lado a lado. Las dos pantallas suman unos 180 KB.
+
+**Falta la captura del documento generado.** Las dos actuales muestran el
+formulario *vacío* (`$0.00` en subtotal, IVA y total) y ninguna enseña el PDF que
+sale al final — que es justo lo que prometen las viñetas de la ficha («importes
+alineados, tipografía contable y paginación automática»). Cuando la tengas, se
+añade como tercera miniatura sin tocar CSS ni JS: basta un `<li>` más con su
+`data-cap` en los dos idiomas.
+
 ## `initShots()` ahora soporta varias galerías
 
 En `assets/main.js`, la función dejó de estar atada a un único `#shots` /
 `#viewer`. Ahora `initGaleria(containerId)` puede llamarse una vez por
-producto — hoy hay dos, `shots` (ERP) y `shots-contab` (Contabilízate) — y
-todas comparten el mismo `<dialog id="viewer">`. Si añades una galería a
-otro producto:
+producto — hoy hay tres, `shots` (ERP), `shots-contab` (Contabilízate) y
+`shots-fact` (Orion Facturación) — y todas comparten el mismo
+`<dialog id="viewer">`. Si añades una galería a otro producto:
 
 1. Duplica el bloque `<figure class="shots" id="shots-...">` del HTML con un
    id nuevo y sus propias imágenes en `assets/capturas/`, con `data-cap="..."`
@@ -255,21 +291,33 @@ termine de cargar.
 
 ## De dónde salen las cifras de la banda
 
-Las tres están contadas sobre el código de los proyectos, no estimadas. Si un
-cliente pregunta, tienes con qué responder:
+Si un cliente pregunta, conviene tener con qué responder. Las tres no salen del
+mismo sitio, así que aquí queda anotado de dónde viene cada una:
 
-| Cifra | Qué cuenta | Desglose |
+| Cifra | Qué cuenta | De dónde sale |
 |---|---|---|
-| **216** | Componentes de interfaz | 174 ERP · 22 Biometría · 19 Contabilízate · 1 Facturación |
-| **6** | Módulos del ERP integrados en un flujo | ventas, proyectos, compras, inventario, aprobaciones, documental |
-| **121** | Signals de Django que automatizan avisos | 38 compras · 36 proyectos · 22 inventario · 18 ventas · 7 core |
+| **112** | Proyectos de software trabajados | Historial de trabajo de Adrián, en **otro repositorio** — no en las cuatro apps de este sitio |
+| **46** | Clientes | Empresas facturadas directamente por Adrián |
+| **121** | Signals de Django que automatizan avisos | Contado sobre el código del ERP: 38 compras · 36 proyectos · 22 inventario · 18 ventas · 7 core |
 
-Otras cifras reales por si quieres cambiar alguna: **145** endpoints de API,
-**54** pantallas de usuario, **40** modelos de datos.
+Las dos primeras **no se pueden verificar desde este repositorio**: dependen del
+historial y la facturación de Adrián. La tercera sí, y por eso lleva desglose.
 
-Al editarlas hay que cambiar **dos cosas** en `index.html`: el atributo
-`data-count` (el destino del conteo animado) y el texto que se ve. Si solo
-cambias uno, la cifra salta al valor viejo al terminar la animación.
+Cifras contadas sobre el código de las cuatro apps, por si alguna vez quieres
+volver a una de ellas: **216** componentes de interfaz (174 ERP · 22 Biometría ·
+19 Contabilízate · 1 Facturación), **6** módulos del ERP encadenados en un flujo,
+**145** endpoints de API, **54** pantallas de usuario, **40** modelos de datos.
+
+**Ojo con los «46 Clientes».** El muro de empresas dice a propósito *«participamos
+como parte del equipo de desarrollo»*, que es otra cosa: son dos conjuntos
+distintos (las 9 del muro son proyectos en equipo; los 46 son facturación propia).
+Si algún día unificas los dos mensajes, revísalos juntos para que no se
+contradigan.
+
+Al editarlas hay que cambiar **dos cosas**, y en **los dos idiomas**
+(`index.html` y `en/index.html`): el atributo `data-count` (el destino del conteo
+animado) y el texto que se ve. Si solo cambias uno, la cifra salta al valor viejo
+al terminar la animación.
 
 ## Antes de enviárselo a un cliente
 
@@ -343,7 +391,7 @@ permiten conectarlo con certificado HTTPS incluido.
 
 ## Notas técnicas
 
-- **Peso total ≈ 2,6 MB**: 2,2 MB en `assets/capturas/` (890 KB del ERP + 710 KB de fotos de obra + 530 KB de Contabilízate), 208 KB de fuentes y el resto
+- **Peso total ≈ 2,8 MB**: 2,4 MB en `assets/capturas/` (890 KB del ERP + 710 KB de fotos de obra + 530 KB de Contabilízate + 180 KB de Facturación), 208 KB de fuentes y el resto
   el HTML, el CSS, el JS, los iconos y los nueve logotipos del muro de empresas.
 - **Los logotipos del muro son máscaras, no imágenes.** Cada uno se guardó como
   un PNG que solo lleva canal alfa, incrustado en `styles.css` como `data:` URI.
@@ -365,13 +413,21 @@ permiten conectarlo con certificado HTTPS incluido.
 - **Accesibilidad.** Contraste AA en ambos temas, navegación por teclado, enlace
   para saltar al contenido y respeto por `prefers-reduced-motion`.
 - **Qué es captura real y qué es maqueta.** Conviene no confundirlas:
-  - **Capturas reales** (imágenes `.jpg`, redactadas): las galerías de Orion ERP
-    y de Contabilízate, dentro de `<figure class="shots">`. Son los sistemas de
-    verdad y por eso llevan el nombre del producto en el rótulo.
-  - **Maquetas** (HTML y CSS, datos inventados, `aria-hidden="true"`): la del
-    hero, el teléfono de Orion Biometría y la proforma de Orion Facturación.
-    La del hero es **deliberadamente genérica** —dice «Tu software · Panel
-    principal», no el nombre de ningún producto— para que el visitante se
-    imagine su propia operación. Si le pones el nombre de un producto real,
-    vuelve la contradicción de enseñar un panel inventado arriba y el
-    verdadero abajo.
+  - **Capturas reales** (imágenes `.jpg`): las galerías de Orion ERP,
+    Contabilízate y Orion Facturación, dentro de `<figure class="shots">`. Son
+    los sistemas de verdad y por eso llevan el nombre del producto en el rótulo.
+    Las dos primeras van redactadas con mosaico; la de Facturación no lo
+    necesitó (ver su sección más arriba).
+  - **Maquetas** (HTML y CSS, datos inventados, `aria-hidden="true"`): ya solo
+    quedan dos, la del hero y el teléfono de Orion Biometría. La del hero es
+    **deliberadamente genérica** —dice «Tu software · Panel principal», no el
+    nombre de ningún producto— para que el visitante se imagine su propia
+    operación. Si le pones el nombre de un producto real, vuelve la
+    contradicción de enseñar un panel inventado arriba y el verdadero abajo.
+- **Las columnas de las fichas compactas.** `.product--compact` da al texto la
+  columna ancha y al arte la angosta (`1.35fr .65fr`). Pero `--flip` invierte el
+  *orden* de las columnas, no las proporciones, así que una ficha con las dos
+  clases se quedaba con el arte en la columna ancha y el texto apretujado. Por
+  eso existe `.product--compact.product--flip { grid-template-columns:.65fr 1.35fr }`.
+  Hoy solo la usa Orion Facturación; si marcas otra ficha con ambas clases, ya
+  está resuelto.

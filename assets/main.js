@@ -303,6 +303,7 @@
 
     initGaleria('shots');
     initGaleria('shots-contab');
+    initGaleria('shots-fact');
   }
 
   /* ---------- Año en curso ----------
