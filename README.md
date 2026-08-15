@@ -125,6 +125,7 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 | Las preguntas de «¿Reconoces alguno de estos problemas?» | `index.html`, sección `#problemas`, lista `.problems` |
 | Las cuatro tarjetas de servicio | `index.html`, sección `#soluciones` — reutiliza `.sectors`/`.sector`, no tiene CSS propio |
 | Los testimonios (hoy son de ejemplo) | `index.html`, sección `#casos` — **lee el aviso antes de tocarlo** |
+| La silueta de fondo de cada testimonio | `index.html`, `<use href="#i-bust-a">` o `#i-bust-b` dentro de cada `.quote`; tamaño y opacidad en `.quote__figure` |
 | Los cuatro pilares de cloud | `index.html`, lista `.pillars` dentro de `#infraestructura` |
 | Preguntas frecuentes | `index.html`, sección `#faq` |
 | El aviso de privacidad | `index.html`, `<dialog id="privacidad">` |
@@ -482,6 +483,15 @@ Tres cosas que conviene revisar:
    Hay un comentario de aviso en el HTML de los dos idiomas y una nota visible
    al pie de la sección. **Reemplázalos antes de publicar en un dominio
    público**, y pide autorización por escrito para usar nombre, cargo y empresa.
+
+   **La silueta del fondo de cada tarjeta es decorativa**, no es un retrato: son
+   dos siluetas SVG del sprite (`i-bust-a`, `i-bust-b`) puestas como marca de
+   agua. Se eligió silueta y no fotografía por dos motivos que siguen vigentes:
+   las únicas fotos de personas del repositorio son las tres de obra, que
+   muestran trabajadores reales e identificables, y el sitio no hace ninguna
+   petición externa, así que un retrato de banco de imágenes rompería eso y
+   añadiría un problema de licencia. El reparto sigue la única señal que da el
+   texto —el género gramatical del cargo en español— y no el tipo de trabajo.
 
 5. **La pasarela de plataformas dice «compatible», no «tenemos experiencia».**
    El titular es *«Desplegamos donde tú ya estés»* y el argumento es la
