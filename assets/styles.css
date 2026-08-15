@@ -482,14 +482,18 @@ img,svg { max-width:100%; }
 /* Ficha de producto */
 .product { padding-block:clamp(2.75rem, 5vw, 4.5rem); border-top:1px solid var(--border); }
 .product:first-of-type { border-top:0; padding-top:0; }
+/* Sin subrayado: caía a pocos píxeles del `border-top` de la ficha siguiente y
+   la fila quedaba encajonada entre dos reglas, leyéndose como una banda vacía.
+   El hueco de abajo (2rem) es bastante menor que el de arriba (el padding de
+   .product), y eso es lo que hace que la categoría se lea como etiqueta del
+   bloque que encabeza, sin necesidad de una línea. */
 .product__bar {
-  display:flex; align-items:center; flex-wrap:wrap; gap:.75rem;
-  padding-bottom:1.5rem; margin-bottom:2rem; border-bottom:1px solid var(--border-soft);
+  display:flex; align-items:center; flex-wrap:wrap; gap:.75rem 1rem;
+  margin-bottom:2rem;
 }
 .product__cat {
   font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-ink);
 }
-.product__bar .pill { margin-left:auto; }
 
 .product__grid { display:grid; grid-template-columns:1fr; gap:clamp(2rem, 4vw, 3.5rem); align-items:center; }
 @media (min-width: 900px) {
