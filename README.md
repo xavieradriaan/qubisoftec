@@ -11,9 +11,13 @@ tema oscuro por defecto, tipografía Inter y JetBrains Mono, iconos Heroicons.
 ## Cómo verlo
 
 Doble clic en `index.html` (español) o en `en/index.html` (inglés). Eso es
-todo — no hay servidor, ni compilación, ni dependencias que instalar. Funciona
-igual sin conexión a internet, así que puedes comprimir la carpeta y enviarla
-por correo.
+todo — no hay compilación ni dependencias que instalar. Funciona igual sin
+conexión a internet, así que puedes comprimir la carpeta y enviarla por correo.
+
+La única salvedad es el **contador de visitas del pie**: necesita el servidor
+del despliegue, así que abriendo el archivo con doble clic esa línea
+sencillamente no aparece. Todo lo demás se ve idéntico. Ver
+[Contador de visitas](#contador-de-visitas).
 
 ---
 
@@ -26,10 +30,12 @@ qubisoft-web/
 │   └── index.html          Página en inglés — misma estructura, ids y clases
 ├── assets/                  Compartida por las dos páginas
 │   ├── styles.css          Tokens de color, temas claro/oscuro y componentes
-│   ├── main.js             Tema, menú, contadores, galerías, año y analítica
+│   ├── main.js             Tema, menú, cifras, galerías, año, analítica y visitas
 │   ├── favicon.svg         Icono de pestaña
 │   ├── logo-qubisoft.svg   Isotipo (por si lo necesitas suelto: firmas, redes)
 │   └── fonts/              Inter y JetBrains Mono en .woff2, auto-alojadas
+├── server.js               Solo para el despliegue: sirve el sitio y cuenta visitas
+├── package.json            Dependencia única: express
 └── README.md
 ```
 
@@ -228,6 +234,10 @@ Porque el sitio **no usa cookies**. Comprobado sobre el código: cero llamadas a
 `localStorage['qubisoft_theme']` — tu preferencia de tema claro/oscuro, que no
 identifica a nadie y no sale del equipo del visitante.
 
+El contador de visitas del pie **no cambia esto**: incrementa un entero en el
+servidor y no guarda nada en el navegador ni registra la IP de nadie. Por eso
+la frase del pie («no rastrea a sus visitantes») sigue siendo literal.
+
 Ese aviso de «Aceptar todo / Rechazar todo» que se ve en tantas páginas es una
 **obligación legal que se dispara al rastrear**, no un sello de profesionalismo.
 Aparece porque esos sitios cargan Google Analytics, píxeles publicitarios o
@@ -319,6 +329,64 @@ Al editarlas hay que cambiar **dos cosas**, y en **los dos idiomas**
 animado) y el texto que se ve. Si solo cambias uno, la cifra salta al valor viejo
 al terminar la animación.
 
+## Contador de visitas
+
+En el pie se muestra un contador público de visitas. A diferencia de las cifras
+de la banda, esta sube sola.
+
+### ⚑ Con cuánto se empezó — la cifra que no hay que olvidar
+
+> **Línea base: 1171 visitas.** Arrancó el **15 de agosto de 2026**.
+>
+> Son las visitas que el sitio ya acumulaba (medidas con Cloudflare Web
+> Analytics) *antes* de que existiera este contador. El servidor guarda **solo
+> las visitas contadas desde esa fecha**; lo que se muestra al público es
+> `1171 + contadas`, así que el primer visitante real vio **1172**.
+
+La constante vive en `server.js` (`var BASELINE = 1171`) con el mismo aviso. Si
+algún día se pierde el Volume, el número reinicia desde 1171 — nunca desde 0.
+Para saber cuántas visitas reales lleva de verdad, resta 1171 a lo que muestre
+el pie.
+
+### Cómo funciona
+
+- **Cuenta cada carga de página.** Recargar con F5 suma. Es deliberado, se
+  eligió lo simple.
+- **El endpoint es `POST`, no `GET`,** a propósito: los rastreadores, los
+  prefetchers y las vistas previas de enlaces hacen GET. Si fuera GET, el
+  número subiría solo cada vez que Google indexara el sitio o alguien pegara el
+  enlace en WhatsApp.
+- **No guarda nada del visitante:** ni IP, ni navegador, ni nada en el
+  navegador. Es un entero y ya. Por eso sigue siendo cierto lo que dicen el pie
+  y el aviso de privacidad.
+- **Si el servidor no responde, la línea no aparece.** Nace con `hidden` y solo
+  se descubre al recibir la cifra. Por eso el ZIP enviado por correo se ve
+  limpio en vez de mostrar un contador roto.
+
+Si algún día el número parece inverosímil, pasar a «visita única por día» se
+hace entero dentro de `server.js`, sin tocar el HTML ni el aviso de privacidad.
+
+### El despliegue necesita el Volume
+
+El sitio se sirve con `server.js` (Node + express). En Railway hace falta un
+**Volume montado en `/data`**, que es donde se guarda `views.json`.
+
+**Sin el Volume el sitio funciona igual**, pero el conteo se reinicia a 1171 en
+cada despliegue. Para comprobarlo, mira los registros al arrancar: si algo va
+mal lo dice en la primera línea (`No se puede escribir en /data…`).
+
+En local se usa otra carpeta para no tener que crear `/data` en la raíz del
+disco:
+
+```bash
+npm install
+DATA_DIR=./.data npm start     # http://localhost:3000
+```
+
+`node_modules/` y `.data/` están en `.gitignore`.
+
+---
+
 ## Antes de enviárselo a un cliente
 
 Tres cosas que conviene revisar:
@@ -374,18 +442,18 @@ Tres cosas que conviene revisar:
 
 ## Publicarlo en internet
 
-Cualquiera de estas opciones sirve, todas gratuitas:
+Hoy está en **Railway** (`qubisoftec-production.up.railway.app`), que ejecuta
+`server.js` con `npm start` y necesita el Volume en `/data` — ver
+[Contador de visitas](#contador-de-visitas).
 
-- **Netlify Drop** — entra a `app.netlify.com/drop` y arrastra la carpeta
-  `qubisoft-web`. Te da una URL en segundos. Es la vía más rápida.
-- **GitHub Pages** — sube la carpeta a un repositorio y activa Pages sobre la
-  rama principal, carpeta raíz.
-- **Vercel** — `vercel deploy` desde esta carpeta, sin configuración.
-- **Tu propio hosting** — copia los archivos por FTP. No necesita PHP,
-  Node ni base de datos.
+Si algún día quieres moverlo, ten presente que **el contador de visitas
+necesita un servidor Node con almacenamiento persistente**. Las alternativas
+de solo-estáticos (Netlify Drop, GitHub Pages, FTP) siguen sirviendo el sitio
+perfectamente, pero la línea de visitas del pie no aparecerá: el resto se ve
+idéntico.
 
-Si compras un dominio (por ejemplo `qubisoft.com`), las tres primeras opciones
-permiten conectarlo con certificado HTTPS incluido.
+Si compras un dominio (por ejemplo `qubisoft.com`), Railway permite conectarlo
+con certificado HTTPS incluido.
 
 ---
 

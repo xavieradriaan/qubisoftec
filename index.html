@@ -789,7 +789,10 @@
     </nav>
     <p class="foot__legal">
       © <span data-year>2026</span> Qubisoft. Todos los derechos reservados.<br>
-      Este sitio no usa cookies ni rastrea a sus visitantes.
+      Este sitio no usa cookies ni rastrea a sus visitantes.<br>
+      <!-- Nace oculto: solo aparece si el servidor responde con la cifra.
+           Abierto con doble clic (sin servidor) el pie se ve limpio. -->
+      <span id="visitas-linea" hidden><b class="mono" id="visitas"></b> visitas</span>
     </p>
   </div>
 </footer>
@@ -839,6 +842,11 @@
       ni almacenamiento en el navegador, ni huella digital del visitante. Solo nos indica
       datos agregados: cuántas visitas hubo, desde qué país y qué secciones se consultan más.
       No permite saber quién eres ni seguirte a otros sitios.
+    </p>
+    <p>
+      En el pie mostramos además un contador público de visitas. Es literalmente un número
+      total: no guardamos tu dirección IP, ni tu navegador, ni nada que permita distinguir
+      una visita de otra.
     </p>
 
     <h3>Lo que no hacemos</h3>

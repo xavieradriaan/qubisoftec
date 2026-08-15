@@ -340,6 +340,37 @@
     document.body.appendChild(s);
   }
 
+  /* ---------- Contador de visitas del pie ----------
+     La cifra la lleva el servidor (ver `server.js`); aquí solo se pide y se
+     escribe. La ruta es absoluta desde la raíz para que funcione igual desde
+     `/` que desde `/en/`, que comparten este mismo archivo.
+
+     La línea nace con `hidden` en el HTML y solo se descubre cuando llega un
+     número. Así, abierto con doble clic (`file://`) o sin conexión —el ZIP
+     que se envía por correo— el pie se ve limpio, en vez de mostrar un
+     contador roto o un guión suelto esperando un dato que no va a llegar. */
+  function initVisitas() {
+    var salida = document.getElementById('visitas');
+    var linea = document.getElementById('visitas-linea');
+    if (!salida || !linea || !window.fetch) return;
+
+    fetch('/api/views', { method: 'POST' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      })
+      .then(function (datos) {
+        if (typeof datos.views !== 'number') return;
+        // Separador de miles según el idioma de la página: 1.172 en español,
+        // 1,172 en inglés.
+        salida.textContent = datos.views.toLocaleString(root.lang || undefined);
+        linea.hidden = false;
+      })
+      .catch(function () {
+        /* Sin servidor detrás: la línea se queda oculta y no pasa nada. */
+      });
+  }
+
   /* ---------- Aviso de privacidad ----------
      Mismo patrón que el visor de capturas: <dialog> nativo, así Escape y el
      foco los gestiona el navegador. */
@@ -378,4 +409,5 @@
   initYear();
   initPrivacidad();
   initAnalytics();
+  initVisitas();
 })();

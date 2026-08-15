@@ -1,0 +1,16 @@
+{
+  "name": "qubisoft-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio de Qubisoft. Los archivos siguen abriéndose con doble clic; este servidor solo hace falta en el despliegue, para el contador de visitas.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

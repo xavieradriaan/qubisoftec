@@ -789,7 +789,10 @@
     </nav>
     <p class="foot__legal">
       © <span data-year>2026</span> Qubisoft. All rights reserved.<br>
-      This site does not use cookies or track its visitors.
+      This site does not use cookies or track its visitors.<br>
+      <!-- Nace oculto: solo aparece si el servidor responde con la cifra.
+           Abierto con doble clic (sin servidor) el pie se ve limpio. -->
+      <span id="visitas-linea" hidden><b class="mono" id="visitas"></b> views</span>
     </p>
   </div>
 </footer>
@@ -839,6 +842,11 @@
       browser storage, or visitor fingerprinting. It only gives us aggregate data: how many
       visits there were, from which country, and which sections are viewed most.
       It can't tell who you are or track you across other sites.
+    </p>
+    <p>
+      We also show a public visit counter in the footer. It is literally a running total:
+      we don't store your IP address, your browser, or anything that could tell one
+      visit apart from another.
     </p>
 
     <h3>What we don't do</h3>
