@@ -708,26 +708,28 @@ img,svg { max-width:100%; }
 @media (min-width: 1040px) { .quotes { grid-template-columns:repeat(3,1fr); } }
 .quote {
   padding:1.6rem 1.5rem; display:flex; flex-direction:column; gap:1.1rem;
-  /* `relative` para anclar la silueta y `hidden` para que el sangrado quede
+  /* `relative` para anclar la comilla y `hidden` para que el sangrado quede
      recortado contra el radio de la tarjeta en lugar de asomar por fuera. */
   position:relative; overflow:hidden;
   box-shadow:var(--shadow-md);
 }
-/* Silueta decorativa: marca de agua que sangra por la esquina inferior
-   derecha. `aria-hidden` en el HTML; aquí se apaga el puntero para que no
-   estorbe a la selección de texto. */
-.quote__figure {
-  position:absolute; z-index:0; right:-1.5rem; bottom:-2.25rem;
-  width:11rem; height:11rem;
-  fill:var(--p-400); stroke:none;
-  opacity:.07; pointer-events:none;
+/* Comilla decorativa: ancla el arranque de la lectura, como en un destacado de
+   toda la vida. El signo va en el HTML —«» en español, “” en inglés— porque la
+   hoja de estilos es compartida por los dos idiomas.
+   `user-select:none` importa: sin él, al seleccionar la cita para copiarla se
+   arrastraría también esta comilla al portapapeles. */
+.quote__mark {
+  position:absolute; z-index:0; top:-1.4rem; left:.6rem;
+  font-size:7rem; font-weight:700; line-height:1;
+  color:var(--p-400); opacity:.10;
+  pointer-events:none; user-select:none; -webkit-user-select:none;
 }
 /* Un elemento posicionado se pinta por encima del contenido en flujo, así que
-   sin esto la silueta quedaría sobre el texto. */
+   sin esto la comilla quedaría sobre el texto. */
 .quote__text, .quote__by { position:relative; z-index:1; }
 /* Sobre fondo claro la misma opacidad se pierde: el púrpura tiene mucho menos
    contra el blanco que contra el gris oscuro. */
-:root[data-theme="light"] .quote__figure { opacity:.10; }
+:root[data-theme="light"] .quote__mark { opacity:.13; }
 .quote__text { font-size:.95rem; line-height:1.7; color:var(--text); }
 /* `margin-top:auto` empuja la firma al fondo de la tarjeta. Sin esto, en una
    fila de tres, cada firma queda a la altura donde acabe su cita y la línea
@@ -735,7 +737,6 @@ img,svg { max-width:100%; }
 .quote__by { display:grid; gap:.15rem; margin-top:auto; }
 .quote__by b { font-size:.88rem; font-weight:600; color:var(--text); }
 .quote__by span { font-size:.8rem; color:var(--text-2); }
-.quotes__note { margin-top:1.5rem; font-size:.78rem; color:var(--text-2); opacity:.75; }
 
 /* ---------- Proceso ---------- */
 .steps { display:grid; grid-template-columns:1fr; gap:1.1rem; counter-reset:step; }
