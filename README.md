@@ -240,8 +240,8 @@ No hay que tocarlo en enero. Cualquier elemento marcado con `data-year` en el
 HTML se rellena con el año en curso al abrir la página:
 
 - El aviso de copyright del pie.
-- Los códigos de orden de trabajo de la maqueta del ERP (`OT-2026-00184`), que
-  de otro modo quedarían anclados a un año viejo y harían ver la demo desactualizada.
+- Los números de documento de la maqueta del hero (`#2026-00184`), que de otro
+  modo quedarían anclados a un año viejo y harían ver la demo desactualizada.
 
 Si añades otro lugar donde deba aparecer el año, basta con envolverlo así:
 
@@ -364,7 +364,14 @@ permiten conectarlo con certificado HTTPS incluido.
   o Formspree lo resuelven sin cambiar de stack.
 - **Accesibilidad.** Contraste AA en ambos temas, navegación por teclado, enlace
   para saltar al contenido y respeto por `prefers-reduced-motion`.
-- **Las capturas son maquetas.** Las pantallas que se ven son recreaciones en
-  HTML y CSS con datos inventados, no capturas de sistemas reales. Cuando
-  quieras sustituirlas por capturas de verdad, cada una vive dentro de un
-  contenedor `.product__art` o `.hero__art` y se reemplaza por un `<img>`.
+- **Qué es captura real y qué es maqueta.** Conviene no confundirlas:
+  - **Capturas reales** (imágenes `.jpg`, redactadas): las galerías de Orion ERP
+    y de Contabilízate, dentro de `<figure class="shots">`. Son los sistemas de
+    verdad y por eso llevan el nombre del producto en el rótulo.
+  - **Maquetas** (HTML y CSS, datos inventados, `aria-hidden="true"`): la del
+    hero, el teléfono de Orion Biometría y la proforma de Orion Facturación.
+    La del hero es **deliberadamente genérica** —dice «Tu software · Panel
+    principal», no el nombre de ningún producto— para que el visitante se
+    imagine su propia operación. Si le pones el nombre de un producto real,
+    vuelve la contradicción de enseñar un panel inventado arriba y el
+    verdadero abajo.
