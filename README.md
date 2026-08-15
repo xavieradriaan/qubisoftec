@@ -41,6 +41,38 @@ qubisoft-web/
 
 ---
 
+## El recorrido de la página
+
+El orden no es decorativo: está pensado como un embudo, de reconocer el
+problema a pedir una cotización.
+
+| # | Sección | Id | Para qué está |
+|---|---|---|---|
+| 1 | Hero | `#top` | Qué haces, en cinco segundos |
+| 2 | Métricas | — | Volumen de trabajo |
+| 3 | Empresas | `#empresas` | Prueba social |
+| 4 | **Problemas** | `#problemas` | Que el visitante se reconozca |
+| 5 | **Soluciones** | `#soluciones` | Qué puede contratarte |
+| 6 | Proyectos | `#productos` | Que existe y funciona |
+| 7 | Caso destacado | `#caso` | Un proyecto a fondo |
+| 8 | Sectores | `#sectores` | Conoces su contexto |
+| 9 | Proceso | `#proceso` | Cómo se trabaja |
+| 10 | Cloud e infraestructura | `#infraestructura` | Objeciones técnicas |
+| 11 | Preguntas | `#faq` | Objeciones comerciales |
+| 12 | **Casos de éxito** | `#casos` | Resultado (⚑ texto de ejemplo) |
+| 13 | Contacto | `#contacto` | La acción |
+
+**Problemas y Soluciones comparten el fondo `--alt`** para leerse como un solo
+bloque de argumento (problema → respuesta). La regla
+`.section--alt + .section--alt { border-top:0 }` evita que el borde inferior de
+la primera y el superior de la segunda dibujen una raya doble en medio.
+
+El navbar solo lleva cinco entradas (Soluciones · Proyectos · Casos · Proceso ·
+Contacto) más el botón de llamada a la acción; el pie mantiene el índice
+completo.
+
+---
+
 ## El sitio es bilingüe: dos páginas, no un interruptor de JS
 
 `index.html` (español, en la raíz) y `en/index.html` (inglés) son dos páginas
@@ -90,6 +122,10 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 | Colores de marca | `assets/styles.css`, bloque `:root` |
 | Color de acento de cada producto | `assets/styles.css`, clases `.acc-erp`, `.acc-bio`, `.acc-fin`, `.acc-doc` |
 | Tema por defecto | El script en el `<head>` de `index.html` |
+| Las preguntas de «¿Reconoces alguno de estos problemas?» | `index.html`, sección `#problemas`, lista `.problems` |
+| Las cuatro tarjetas de servicio | `index.html`, sección `#soluciones` — reutiliza `.sectors`/`.sector`, no tiene CSS propio |
+| Los testimonios (hoy son de ejemplo) | `index.html`, sección `#casos` — **lee el aviso antes de tocarlo** |
+| Los cuatro pilares de cloud | `index.html`, lista `.pillars` dentro de `#infraestructura` |
 | Preguntas frecuentes | `index.html`, sección `#faq` |
 | El aviso de privacidad | `index.html`, `<dialog id="privacidad">` |
 | Activar analítica de visitas | `assets/main.js`, `var CF_TOKEN` — ver abajo |
@@ -412,13 +448,42 @@ Tres cosas que conviene revisar:
    Si prefieres volver a anonimizarlo, hay que cambiarlo en los dos sitios:
    el `<h2>` de `#caso` y la celda `.client--citell`.
 
-3. **Lo que no prometemos.** El texto evita a propósito insinuar cosas que las
-   apps todavía no hacen: integración con el SRI, facturación electrónica, OCR,
-   inteligencia artificial, detección de vida (*liveness*) en el reconocimiento
-   facial o integración con nómina. Si añades funciones al copy, verifica antes
-   que existan de verdad.
+3. **⚑ Lo que la sección «Soluciones» promete y todavía no tiene caso que
+   enseñar.** Las cuatro tarjetas de `#soluciones` anuncian capacidades de
+   servicio, no funciones de las cuatro apps. Adrián confirmó que puede
+   respaldarlas, pero **el portafolio publicado en este sitio es todo web**, así
+   que hoy no hay nada que mostrar en pantalla para:
 
-4. **La pasarela de plataformas dice «compatible», no «tenemos experiencia».**
+   | Afirmación en el sitio | Qué falta |
+   |---|---|
+   | Aplicaciones móviles | Ninguna de las cuatro apps es móvil. Sin captura ni caso. |
+   | Kubernetes, CI/CD, monitoreo | Docker sí está verificado; de lo demás no hay rastro en el repositorio. |
+   | Pasarelas de pago | Ninguna integración de pago en las cuatro apps. |
+
+   No es que sean falsas: es que **si un prospecto las pide en la primera
+   reunión, hay que poder enseñarlas**. En cuanto haya un proyecto que las
+   demuestre, añádelo a `#productos` y borra esta tabla. Si alguna resulta que
+   no se sostiene, quita esa tarjeta antes de publicar el sitio en un dominio
+   público.
+
+   Aparte de eso, el texto sigue evitando insinuar cosas que las apps todavía
+   no hacen: facturación electrónica, OCR, inteligencia artificial, detección de
+   vida (*liveness*) en el reconocimiento facial o integración con nómina. Si
+   añades funciones al copy, verifica antes que existan de verdad.
+
+4. **⚑ Los testimonios de «Casos de éxito» son texto de ejemplo.** Los tres de
+   `#casos` los redactamos como muestra de la forma que debe tener la sección
+   (situación anterior → resultado medible): **no son declaraciones reales de
+   ningún cliente**. Por eso la atribución es genérica y no nombra a ninguna
+   empresa — poner palabras inventadas en boca de CITELL S.A. o de cualquiera
+   del muro de logotipos sería fabricar un respaldo comercial falso de un
+   negocio real.
+
+   Hay un comentario de aviso en el HTML de los dos idiomas y una nota visible
+   al pie de la sección. **Reemplázalos antes de publicar en un dominio
+   público**, y pide autorización por escrito para usar nombre, cargo y empresa.
+
+5. **La pasarela de plataformas dice «compatible», no «tenemos experiencia».**
    El titular es *«Desplegamos donde tú ya estés»* y el argumento es la
    portabilidad: el stack va en contenedores, así que corre en cualquiera de las
    doce. Debajo, una línea aclara en cuáles hay sistemas tuyos corriendo hoy:
@@ -427,14 +492,14 @@ Tres cosas que conviene revisar:
    en Azure, GCP u Oracle, súmalas a esa línea. Mientras tanto, no la toques:
    afirmar experiencia que no tienes se cae en la primera reunión técnica.
 
-5. **Orion Facturación dice «En producción»**, aunque
+6. **Orion Facturación dice «En producción»**, aunque
    `facturas/backend/config/settings.py` sigue con `DEBUG = True`,
    `SECRET_KEY` de desarrollo, SQLite y la API sin autenticación. Adrián
    confirmó dejarlo así por ahora; existe la clase `.pill--proto` en
    `styles.css` para volver a «Prototipo funcional» (ambos idiomas) el día
    que se decida endurecer el backend antes de esa etiqueta.
 
-6. **Editar contenido en dos páginas.** Cualquier cambio de texto, cifra o
+7. **Editar contenido en dos páginas.** Cualquier cambio de texto, cifra o
    captura debe revisarse tanto en `index.html` como en `en/index.html` — no
    hay una fuente única que las genere a las dos.
 

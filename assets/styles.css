@@ -671,6 +671,51 @@ img,svg { max-width:100%; }
 .sector > .ico { width:26px; height:26px; color:var(--p-400); }
 .sector p { font-size:.88rem; color:var(--text-2); }
 
+/* Soluciones reutiliza `.sector`, pero son cuatro tarjetas: con la rejilla de
+   tres de `.sectors` quedaría una suelta en la segunda fila. Se queda en 2×2,
+   que además deja ancho suficiente para las listas de cada tarjeta. Va después
+   del bloque `.sectors` a propósito: misma especificidad, gana el último. */
+.sectors--4 { grid-template-columns:1fr; }
+@media (min-width: 700px) { .sectors--4 { grid-template-columns:1fr 1fr; } }
+
+/* ---------- Problemas ----------
+   Deliberadamente más ligero que `.sector`: sin icono y con la pregunta como
+   protagonista. Si llevara icono y tarjeta con borde, el visitante lo leería
+   como el mismo componente que Sectores, que aparece más abajo. */
+.problems { display:grid; grid-template-columns:1fr; gap:.9rem; }
+@media (min-width: 700px) { .problems { grid-template-columns:1fr 1fr; } }
+.problem {
+  padding:1.15rem 1.3rem;
+  border-left:2px solid var(--p-600);
+  background:var(--surface);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:1rem; line-height:1.55; color:var(--text);
+}
+.problems__answer {
+  margin-top:clamp(1.75rem, 3vw, 2.5rem);
+  font-size:1.05rem; line-height:1.65; color:var(--text-2); max-width:60ch;
+}
+.problems__answer b, .problems__answer strong { color:var(--text); font-weight:600; }
+
+/* Problemas y Soluciones comparten fondo para leerse como un solo bloque de
+   argumento (problema → respuesta). Sin esto, el borde inferior de la primera
+   y el superior de la segunda se suman y dibujan una raya doble en medio. */
+.section--alt + .section--alt { border-top:0; }
+
+/* ---------- Casos de éxito ---------- */
+.quotes { display:grid; grid-template-columns:1fr; gap:1.1rem; }
+@media (min-width: 760px)  { .quotes { grid-template-columns:1fr 1fr; } }
+@media (min-width: 1040px) { .quotes { grid-template-columns:repeat(3,1fr); } }
+.quote { padding:1.6rem 1.5rem; display:flex; flex-direction:column; gap:1.1rem; }
+.quote__text { font-size:.95rem; line-height:1.7; color:var(--text); }
+/* `margin-top:auto` empuja la firma al fondo de la tarjeta. Sin esto, en una
+   fila de tres, cada firma queda a la altura donde acabe su cita y la línea
+   de atribución se ve descuadrada entre tarjetas. */
+.quote__by { display:grid; gap:.15rem; margin-top:auto; }
+.quote__by b { font-size:.88rem; font-weight:600; color:var(--text); }
+.quote__by span { font-size:.8rem; color:var(--text-2); }
+.quotes__note { margin-top:1.5rem; font-size:.78rem; color:var(--text-2); opacity:.75; }
+
 /* ---------- Proceso ---------- */
 .steps { display:grid; grid-template-columns:1fr; gap:1.1rem; counter-reset:step; }
 @media (min-width: 700px)  { .steps { grid-template-columns:1fr 1fr; } }
@@ -815,6 +860,19 @@ img,svg { max-width:100%; }
   margin-top:clamp(2rem, 4vw, 3rem);
   font-size:.95rem; color:var(--text-2);
 }
+/* Los cuatro pilares de la sección de infraestructura. Fila compacta: no son
+   tarjetas, para no competir con las de Soluciones ni con las de Sectores. */
+.pillars {
+  display:grid; grid-template-columns:1fr; gap:1.4rem 1.75rem;
+  margin-top:clamp(2.25rem, 4vw, 3.25rem);
+}
+@media (min-width: 640px)  { .pillars { grid-template-columns:1fr 1fr; } }
+@media (min-width: 1040px) { .pillars { grid-template-columns:repeat(4,1fr); } }
+.pillars li { display:grid; grid-template-columns:auto 1fr; gap:.35rem .7rem; align-content:start; }
+.pillars .ico { width:22px; height:22px; color:var(--p-400); grid-row:span 2; margin-top:.15rem; }
+.pillars b { font-size:.95rem; font-weight:600; color:var(--text); align-self:end; }
+.pillars span { font-size:.85rem; line-height:1.55; color:var(--text-2); }
+
 .infra__note .dot { margin-top:.55em; }
 .infra__note b { color:var(--text); font-weight:600; }
 .infra__brand { display:inline-flex; align-items:center; gap:.3em; }
