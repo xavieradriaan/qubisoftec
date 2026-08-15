@@ -100,10 +100,6 @@
         if (!entry.isIntersecting) return;
         observer.unobserve(entry.target);
         animate(entry.target);
-        // Bajo "Aplicaciones desarrolladas", los 4 iconos de producto entran
-        // junto con el número: el peso de la cifra viene de verla acompañada.
-        var glyphs = entry.target.parentElement.querySelector('.metric__glyphs');
-        if (glyphs) glyphs.classList.add('is-in');
       });
     }, { threshold: 0.6 });
 

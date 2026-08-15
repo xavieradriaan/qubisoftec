@@ -220,7 +220,12 @@ img,svg { max-width:100%; }
 .nav[data-open] .nav__burger .ico--closed { display:block; }
 .nav[data-open] .nav__burger .ico--open   { display:none; }
 
-@media (max-width: 940px) {
+/* 1080px y no 940: con el selector de idioma en la fila, los enlaces en español
+   («Preguntas», «Agendar una demostración») necesitan 1071px para caber, así que
+   entre 941 y 1070 se salían de la pantalla. El punto de corte se fija por el
+   idioma más largo —no por el inglés, que cabría en 946— para que siga sirviendo
+   si mañana se alarga algún enlace. */
+@media (max-width: 1080px) {
   .nav__burger { display:grid; }
   .nav__links {
     display:none;
@@ -388,44 +393,54 @@ img,svg { max-width:100%; }
 /* ---------- Métricas ---------- */
 /* Sin espacio inferior: la banda se apoya sobre el aire de la sección siguiente. */
 .metrics { padding-block:0; }
+/* Una columna en móvil y tres a partir de 640px, sin pasos intermedios: con
+   `auto-fit` la rejilla caía en 2 columnas entre ~395 y ~595px de viewport, y
+   como son 3 tarjetas quedaba una celda vacía pintada del color del borde. */
 .metrics__grid {
-  display:grid; gap:1px; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  display:grid; gap:1px; grid-template-columns:1fr;
   background:var(--border); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden;
 }
-.metric { background:var(--surface); padding:1.6rem 1.35rem; display:grid; gap:.4rem; align-content:start; }
+@media (min-width: 640px) { .metrics__grid { grid-template-columns:repeat(3, 1fr); } }
+
+/* Alineado arriba, para que el chip y la cifra de las tres tarjetas queden a la
+   misma altura. Centrarlas verticalmente cerraba el hueco de abajo, pero dejaba
+   «Clientes» —que tiene una línea menos de etiqueta— desplazado respecto a las
+   otras dos. El hueco se resuelve en `.metric small`, no aquí. */
+.metric {
+  background:var(--surface); padding:2rem 1.5rem;
+  display:grid; gap:.55rem; align-content:start; justify-items:start;
+}
+/* Un chip por tarjeta, no cuatro en la primera: es lo que hace que las tres
+   tengan la misma anatomía y ninguna arrastre altura extra. */
+.metric__ico {
+  display:grid; place-items:center; width:38px; height:38px;
+  border-radius:var(--r-sm); background:var(--surface-2); border:1px solid var(--border);
+  color:var(--p-400); margin-bottom:.35rem;
+}
+.metric__ico .ico { width:19px; height:19px; }
 .metric .num {
   font-family:'JetBrains Mono', monospace; font-variant-numeric:tabular-nums;
-  font-size:clamp(1.9rem, 3.4vw, 2.5rem); font-weight:600; letter-spacing:-.03em;
+  font-size:clamp(2.4rem, 4.6vw, 3.25rem); font-weight:600; letter-spacing:-.03em;
+  line-height:1;   /* sin esto hereda ~1.5 y añade aire muerto arriba y abajo */
   background-image:var(--brand-gradient);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
-.metric small { font-size:.82rem; color:var(--text-2); line-height:1.5; }
+/* Dos cosas evitan el hueco muerto que tenía la banda:
+   - `max-width`, para que «Clientes» no flote sola mientras la etiqueta larga
+     se estira en una sola línea larguísima;
+   - `min-height` de dos líneas (1.5 de interlineado × 2), para que la etiqueta
+     de una sola línea reserve el mismo alto que las de dos. Así las tarjetas
+     terminan a la misma altura sin tener que centrarlas. */
+.metric small {
+  font-size:.85rem; color:var(--text-2); line-height:1.5;
+  max-width:22ch; min-height:3em;
+}
 
 /* Golpe de rebote al aterrizar en el valor real (main.js añade la clase
    cuando el conteo por pasos termina). */
 .num--landed { animation:numLand .38s cubic-bezier(.34,1.56,.64,1); }
 @keyframes numLand { 0% { transform:scale(1); } 45% { transform:scale(1.12); } 100% { transform:scale(1); } }
 @media (prefers-reduced-motion: reduce) { .num--landed { animation:none; } }
-
-/* Fila de los 4 productos bajo esa cifra: el número no crece, pero gana peso
-   al verse acompañado de algo concreto y nombrable. */
-.metric__glyphs { display:flex; gap:.5rem; margin-top:.35rem; }
-.metric__glyphs li {
-  display:grid; place-items:center; width:26px; height:26px;
-  border-radius:7px; background:var(--surface-2); border:1px solid var(--border);
-  color:var(--p-400);
-  opacity:0; transform:translateY(4px) scale(.85);
-}
-.metric__glyphs .ico { width:14px; height:14px; }
-.metric__glyphs.is-in li {
-  animation:glyphIn .4s cubic-bezier(.34,1.56,.64,1) forwards;
-  animation-delay:calc(var(--d) * 110ms);
-}
-@keyframes glyphIn { to { opacity:1; transform:none; } }
-@media (prefers-reduced-motion: reduce) {
-  .metric__glyphs li { opacity:1; transform:none; }
-  .metric__glyphs.is-in li { animation:none; }
-}
 
 /* ---------- Productos ----------
    Un solo morado para los cuatro: el sitio dejó de diferenciar cada producto
