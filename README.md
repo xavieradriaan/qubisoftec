@@ -143,8 +143,8 @@ listas o el giro quedará descuadrado.
 
 ## Las capturas del ERP
 
-La ficha de Orion ERP muestra once imágenes: ocho pantallas reales del sistema
-(sacadas del video `DEMO ORION-ERP.mov`) y tres fotografías de una obra en
+La ficha de Orion ERP muestra trece imágenes: ocho pantallas reales del sistema
+(sacadas del video `DEMO ORION-ERP.mov`) y cinco fotografías de una obra en
 ejecución. **El video no se publica**: pesaba 91 MB, más de ochenta veces el
 sitio entero. Está guardado en `Documents/DEMO ORION-ERP.mov`, fuera de esta
 carpeta, como copia maestra.
@@ -165,15 +165,22 @@ Cada captura pasó por tres pasos antes de entrar aquí:
 **Si cambias una captura**, revisa que no reaparezcan esos datos: el video
 original los tiene en todos los fotogramas.
 
-**Las tres fotos de obra** (`obra-estructura`, `obra-montaje`, `obra-losa`)
-son distintas: no son interfaz del sistema, así que no llevan mosaico —fue
-decisión explícita de Adrián no difuminar a las personas que aparecen—.
-Dos de las tres venían verticales; se recortaron al centro con el mismo
-marco 1440:760 de las capturas de software solo para la miniatura destacada
-y la tira, así la rejilla no cambia de tamaño al pasar de una pantalla a una
-foto. El visor grande muestra la foto completa, sin ese recorte. Los
-originales (2-3 MB cada uno) están en
-`Documents/fotos-obra-originales/`, fuera de esta carpeta.
+**Las cinco fotos de obra** (`obra-estructura`, `obra-montaje`, `obra-losa`,
+`obra-aerea`, `obra-armado`) son distintas: no son interfaz del sistema, así que
+no llevan mosaico —fue decisión explícita de Adrián no difuminar a las personas
+que aparecen—. Las que no traían el formato apaisado se recortaron al centro con
+el mismo marco 1440:760 de las capturas de software solo para la miniatura
+destacada y la tira, así la rejilla no cambia de tamaño al pasar de una pantalla
+a una foto. El visor grande muestra la foto completa, sin ese recorte. Los
+originales (2-3 MB cada uno) están en `Documents/fotos-obra-originales/`, fuera
+de esta carpeta.
+
+`obra-aerea` y `obra-armado` son tomas de dron, añadidas después. Al ser
+aéreas no hay rostros reconocibles ni matrículas legibles al tamaño publicado.
+**Comprimen mucho peor que el resto** —hierba, grava y varilla son puro
+detalle fino—, así que van a 1200 px y calidad 42 en vez de 1440: a la calidad
+del resto pesaban más de 500 KB cada una, el doble que cualquier otra foto del
+sitio. Si añades más tomas de dron, revisa el peso antes de darlas por buenas.
 
 ## Las capturas de Contabilízate
 
@@ -538,8 +545,16 @@ con certificado HTTPS incluido.
 
 ## Notas técnicas
 
-- **Peso total ≈ 2,8 MB**: 2,4 MB en `assets/capturas/` (890 KB del ERP + 710 KB de fotos de obra + 530 KB de Contabilízate + 180 KB de Facturación), 208 KB de fuentes y el resto
-  el HTML, el CSS, el JS, los iconos y los nueve logotipos del muro de empresas.
+- **Peso total ≈ 5,6 MB**, casi todo en `assets/capturas/` (5,1 MB): 3,2 MB de
+  pantallas del ERP, 1,3 MB de las cinco fotos de obra, 545 KB de Contabilízate
+  y 176 KB de Facturación. El resto son 203 KB de fuentes y 350 KB de HTML, CSS,
+  JS, iconos y los nueve logotipos del muro.
+
+  Medido con el desglose real, no a ojo. Nótese que **el navegador no descarga
+  esos 5,6 MB de golpe**: las capturas llevan `loading="lazy"` y solo bajan las
+  miniaturas hasta que alguien abre el visor. Aun así, las pantallas del ERP son
+  con diferencia lo más pesado del sitio y son el primer sitio donde mirar si
+  algún día hay que adelgazarlo.
 - **Los logotipos del muro son máscaras, no imágenes.** Cada uno se guardó como
   un PNG que solo lleva canal alfa, incrustado en `styles.css` como `data:` URI.
   El CSS lo usa con `mask-image` y lo rellena con `currentColor`, así que la
