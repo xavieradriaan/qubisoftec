@@ -300,6 +300,7 @@
     initGaleria('shots');
     initGaleria('shots-contab');
     initGaleria('shots-fact');
+    initGaleria('shots-legal');
   }
 
   /* ---------- Año en curso ----------

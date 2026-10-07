@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Qubisoft — Custom business software | Guayaquil, Ecuador</title>
-<meta name="description" content="We design, develop, and deploy custom management systems: ERP, biometric attendance tracking, personal finance, and invoicing. Guayaquil, Ecuador.">
+<meta name="description" content="We design, develop, and deploy custom management systems: ERP, biometric attendance tracking, personal finance, invoicing, and online service platforms. Guayaquil, Ecuador.">
 <meta name="theme-color" content="#7c3aed">
 <link rel="alternate" hreflang="es" href="https://xavieradriaan.github.io/qubisoftec/">
 <link rel="alternate" hreflang="en" href="https://xavieradriaan.github.io/qubisoftec/en/">
@@ -59,6 +59,7 @@
     <symbol id="i-mobile" viewBox="0 0 24 24"><path d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></symbol>
     <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z"/></symbol>
     <symbol id="i-link" viewBox="0 0 24 24"><path d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z"/></symbol>
 
     <!-- Platform logos (Simple Icons, CC0). Monochrome: painted with currentColor.
          Embedded on purpose, so nothing depends on a CDN. -->
@@ -136,7 +137,7 @@
     </div>
 
     <!-- Illustrative mockup, deliberately generic: it does not represent any of
-         the four products. The real screenshots of the Orion ERP dashboard are
+         the five products. The real screenshots of the Orion ERP dashboard are
          further down, in its own card (#producto-1). The wording here is kept
          neutral on purpose, so a builder, a warehouse, a field crew, or a
          retailer can all see themselves in it. -->
@@ -183,7 +184,7 @@
     <div class="metrics__grid" id="metrics">
       <div class="metric">
         <!-- 112 projects and 46 clients come from Adrián's work history, which
-             lives in a different repository (not the four apps on this site).
+             lives in a different repository (not the five apps on this site).
              If they change, update the number AND the visible text: data-count
              is the target of the animated count. -->
         <span class="metric__ico" aria-hidden="true"><svg class="ico"><use href="#i-squares"/></svg></span>
@@ -322,11 +323,11 @@
       <h2 id="h-productos">Some of our work</h2>
       <p class="section__sub">
         Each one addresses a different need and operates independently.
-        They aren't modules of a single system — they're four standalone applications.
+        They aren't modules of a single system — they're five standalone applications.
       </p>
     </header>
 
-    <!-- Index. Its only job is to make "there are four" clear before reading anything else. -->
+    <!-- Index. Its only job is to make "there are five" clear before reading anything else. -->
     <ol class="pindex">
       <li class="card pcard acc-erp">
         <a href="#producto-1">
@@ -357,6 +358,14 @@
           <span class="pcard__cat">Business documents</span>
           <h3>Orion Facturación</h3>
           <p>Quotes with your company's identity, generated instantly.</p>
+          <span class="pcard__go">See details <svg class="ico"><use href="#i-arrow-right"/></svg></span>
+        </a>
+      </li>
+      <li class="card pcard acc-legal">
+        <a href="#producto-5">
+          <span class="pcard__cat">Legal services</span>
+          <h3>Legal &amp; Cotidiano</h3>
+          <p>Online consultations with lawyers: assignment, scheduling, and payment in one place.</p>
           <span class="pcard__go">See details <svg class="ico"><use href="#i-arrow-right"/></svg></span>
         </a>
       </li>
@@ -615,6 +624,76 @@
               <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Orion Facturación · Items and totals"><img src="../assets/capturas/fact-totales-t.jpg" width="260" height="159" alt="Items and totals" loading="lazy"></button></li>
             </ul>
             <figcaption class="shots__note">The system in production</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 05 · Legal & Cotidiano ---------- -->
+    <article class="product acc-legal" id="producto-5" aria-labelledby="h-p5">
+      <div class="product__bar">
+        <span class="product__cat">Legal services · Web platform</span>
+        <span class="pill pill--live">Live in production</span>
+      </div>
+
+      <div class="product__grid">
+        <div class="product__copy">
+          <div class="product__title">
+            <span class="brand__mark brand__mark--md" aria-hidden="true"><svg class="ico"><use href="#i-scale"/></svg></span>
+            <div>
+              <h3 id="h-p5">Legal &amp; Cotidiano</h3>
+              <p class="product__tag">Online legal advice, from the first question to the meeting with a lawyer</p>
+            </div>
+          </div>
+
+          <dl class="pmeta">
+            <div><dt>Who it's for</dt><dd>Law firms and lawyer networks serving individuals</dd></div>
+            <div><dt>What it solves</dt><dd>Consultations lost between phone calls, chats and paperwork</dd></div>
+            <div><dt>Scope</dt><dd>Consultations, assignment, scheduling, messaging and payments</dd></div>
+          </dl>
+
+          <p class="product__lead">
+            Clients describe their case from their phone or computer, attach their documents, and pay
+            only for the consultation they submit. The platform assigns it to the right lawyer, and from
+            then on the conversation, the appointment, and every status change are kept in the case file.
+          </p>
+          <ul class="feats">
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Guided consultation.</b> Three steps: the area of law out of twelve (family, labor, criminal, traffic, tenancy…), the case details, and the documents.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Automatic assignment.</b> Each consultation goes to a lawyer based on their specialty and workload; an administrator can reassign it manually.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Case file.</b> Conversation, attached documents, and a timestamped history of every step, all in one place.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Session scheduling.</b> Lawyers publish their availability and clients pick the time, with the option to change it later.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Payments & subscriptions.</b> Pay-per-consultation for clients and a monthly subscription with a trial period for lawyers, through the Nuvei payment gateway. Card numbers and CVVs are never stored.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Three roles, each with its own view.</b> Client, lawyer, and administrator: everyone sees only their own consultations, with notifications for every update.</span></li>
+          </ul>
+        </div>
+
+        <!-- Capturas reales del sistema. Los nombres y correos (@yopmail.com) que
+             aparecen son datos de demostración, no de personas reales: por eso
+             no llevan mosaico. En «Nueva consulta» se tapó el tooltip del
+             navegador que quedó sobre el logo. La interfaz de la app está en
+             español; las leyendas sí van traducidas. -->
+        <div class="product__art">
+          <figure class="shots" id="shots-legal">
+            <button class="shots__main" type="button" data-open="0">
+              <span class="mock__bar" aria-hidden="true"><span></span><span></span><span></span><em class="shots__cap">Legal &amp; Cotidiano · Consultations dashboard</em></span>
+              <img class="shots__img" src="../assets/capturas/legal-consultas-mini.jpg" width="760" height="401"
+                   alt="Legal &amp; Cotidiano consultations dashboard with each case's status and assigned lawyer" loading="lazy" decoding="async">
+              <span class="shots__cue"><svg class="ico"><use href="#i-expand"/></svg> Expand</span>
+            </button>
+
+            <ul class="shots__strip" role="tablist" aria-label="Legal &amp; Cotidiano screens">
+              <li><button type="button" role="tab" aria-selected="true"  data-i="0" data-cap="Legal &amp; Cotidiano · Consultations dashboard"><img src="../assets/capturas/legal-consultas-t.jpg" width="260" height="137" alt="Consultations dashboard" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Legal &amp; Cotidiano · Public home page"><img src="../assets/capturas/legal-inicio-t.jpg" width="260" height="137" alt="Public home page" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="2" data-cap="Legal &amp; Cotidiano · Sign in"><img src="../assets/capturas/legal-login-t.jpg" width="260" height="137" alt="Sign in" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="3" data-cap="Legal &amp; Cotidiano · New consultation"><img src="../assets/capturas/legal-nueva-t.jpg" width="260" height="137" alt="New consultation" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="4" data-cap="Legal &amp; Cotidiano · Case details and notifications"><img src="../assets/capturas/legal-caso-t.jpg" width="260" height="137" alt="Case details and notifications" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="5" data-cap="Legal &amp; Cotidiano · Conversation with the lawyer"><img src="../assets/capturas/legal-conversacion-t.jpg" width="260" height="137" alt="Conversation with the lawyer" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="6" data-cap="Legal &amp; Cotidiano · Client schedule"><img src="../assets/capturas/legal-agenda-t.jpg" width="260" height="137" alt="Client schedule" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="7" data-cap="Legal &amp; Cotidiano · Lawyer subscription"><img src="../assets/capturas/legal-suscripcion-t.jpg" width="260" height="137" alt="Lawyer subscription" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="8" data-cap="Legal &amp; Cotidiano · Lawyer management"><img src="../assets/capturas/legal-abogados-t.jpg" width="260" height="137" alt="Lawyer management" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="9" data-cap="Legal &amp; Cotidiano · Platform subscriptions"><img src="../assets/capturas/legal-suscripciones-t.jpg" width="260" height="137" alt="Platform subscriptions" loading="lazy"></button></li>
+            </ul>
+            <figcaption class="shots__note">The system in production · demo data</figcaption>
           </figure>
         </div>
       </div>
@@ -911,8 +990,8 @@
       </div>
       <div class="cta__actions">
         <!-- NOTE: verify these details before sending the site out. -->
-        <a class="btn btn--solid btn--lg" href="mailto:info@qubisoft.com?subject=Inquiry%20from%20the%20Qubisoft%20website">
-          <svg class="ico"><use href="#i-mail"/></svg> info@qubisoft.com
+        <a class="btn btn--solid btn--lg" href="mailto:infoqubisoft@gmail.com?subject=Inquiry%20from%20the%20Qubisoft%20website">
+          <svg class="ico"><use href="#i-mail"/></svg> infoqubisoft@gmail.com
         </a>
         <a class="btn btn--outline btn--lg" href="https://wa.me/593994894984" target="_blank" rel="noopener">
           <svg class="ico"><use href="#i-chat"/></svg> +593 99 489 4984
@@ -1017,7 +1096,7 @@
     </ul>
 
     <p class="aviso__pie">
-      Questions about this? Email us at <a href="mailto:info@qubisoft.com">info@qubisoft.com</a>.
+      Questions about this? Email us at <a href="mailto:infoqubisoft@gmail.com">infoqubisoft@gmail.com</a>.
     </p>
   </div>
 </dialog>

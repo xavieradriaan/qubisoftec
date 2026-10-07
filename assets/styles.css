@@ -443,26 +443,38 @@ img,svg { max-width:100%; }
 @media (prefers-reduced-motion: reduce) { .num--landed { animation:none; } }
 
 /* ---------- Productos ----------
-   Un solo morado para los cuatro: el sitio dejó de diferenciar cada producto
+   Un solo morado para los cinco: el sitio dejó de diferenciar cada producto
    con su color propio (antes Contabilízate llevaba oro). --accent se usa en
    zonas decorativas (filete), --accent-ink en texto legible sobre el fondo. */
-.acc-erp, .acc-bio, .acc-fin, .acc-doc { --accent:#7c3aed; --accent-ink:#9f75ff; }
+.acc-erp, .acc-bio, .acc-fin, .acc-doc, .acc-legal { --accent:#7c3aed; --accent-ink:#9f75ff; }
 :root[data-theme="light"] .acc-erp,
 :root[data-theme="light"] .acc-bio,
 :root[data-theme="light"] .acc-fin,
-:root[data-theme="light"] .acc-doc { --accent-ink:#6d28d9; }
+:root[data-theme="light"] .acc-doc,
+:root[data-theme="light"] .acc-legal { --accent-ink:#6d28d9; }
 
-/* Índice 01–04 */
+/* Índice 01–05 */
 .pindex {
   display:grid; grid-template-columns:1fr; gap:1rem;
   margin-bottom:clamp(3rem, 6vw, 5rem);
 }
 @media (min-width: 620px)  { .pindex { grid-template-columns:1fr 1fr; } }
-@media (min-width: 1040px) { .pindex { grid-template-columns:repeat(4,1fr); } }
+/* Con un número impar de tarjetas, en dos columnas la última quedaría sola con
+   un hueco al lado: ocupa la fila entera. */
+@media (min-width: 620px) and (max-width: 1039.98px) {
+  .pcard:last-child:nth-child(odd) { grid-column:1 / -1; }
+}
+@media (min-width: 1040px) {
+  .pindex { grid-template-columns:repeat(5,1fr); }
+  /* A cinco columnas, «ERP · Gestión empresarial» y «Documentos comerciales»
+     parten en dos líneas y bajaban su título respecto a las vecinas. Reservar
+     siempre dos líneas deja los cinco títulos a la misma altura. */
+  .pcard__cat { line-height:1.45; min-height:2.9em; }
+}
 .pcard { padding:0; overflow:hidden; transition:border-color .2s, transform .2s; }
 .pcard:hover { border-color:var(--accent); transform:translateY(-3px); }
 /* Columna flex, no grid: así el `margin-top:auto` del enlace lo empuja al fondo
-   y las cuatro tarjetas alinean su «Ver detalle» aunque la categoría envuelva. */
+   y las cinco tarjetas alinean su «Ver detalle» aunque la categoría envuelva. */
 .pcard > a {
   display:flex; flex-direction:column; gap:.5rem; height:100%;
   padding:1.4rem 1.3rem 1.25rem;

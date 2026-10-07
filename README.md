@@ -1,7 +1,8 @@
 # Sitio web de Qubisoft
 
-Página estática de portafolio que presenta las cuatro aplicaciones desarrolladas:
-**Orion ERP**, **Orion Biometría**, **Contabilízate** y **Orion Facturación**.
+Página estática de portafolio que presenta las cinco aplicaciones desarrolladas:
+**Orion ERP**, **Orion Biometría**, **Contabilízate**, **Orion Facturación** y
+**Legal & Cotidiano**.
 
 Hereda el sistema de diseño de Orion ERP y Orion Biometría: púrpura `#7c3aed`,
 tema oscuro por defecto, tipografía Inter y JetBrains Mono, iconos Heroicons.
@@ -108,8 +109,8 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 
 | Quiero cambiar… | Está en… |
 |---|---|
-| Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-4` |
-| El índice de productos (las tarjetas 01–04) | `index.html`, lista `.pindex` |
+| Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-5` |
+| El índice de productos (las tarjetas 01–05) | `index.html`, lista `.pindex` |
 | Estado de un producto (En producción / Prototipo) | `index.html`, la píldora dentro de `.product__bar` |
 | Las cifras de la banda de métricas | `index.html`, `.metrics__grid` — cambia el `data-count` **y** el texto visible |
 | El año (copyright y órdenes de trabajo) | **No se toca:** se actualiza solo. Ver abajo |
@@ -120,7 +121,7 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 | Velocidad de la pasarela | `assets/styles.css`, `.marquee__track` → `animation: … 46s …` |
 | Correo, WhatsApp y ubicación | `index.html`, sección `#contacto` |
 | Colores de marca | `assets/styles.css`, bloque `:root` |
-| Color de acento de cada producto | `assets/styles.css`, clases `.acc-erp`, `.acc-bio`, `.acc-fin`, `.acc-doc` |
+| Color de acento de cada producto | `assets/styles.css`, clases `.acc-erp`, `.acc-bio`, `.acc-fin`, `.acc-doc`, `.acc-legal` |
 | Tema por defecto | El script en el `<head>` de `index.html` |
 | Las preguntas de «¿Reconoces alguno de estos problemas?» | `index.html`, sección `#problemas`, lista `.problems` |
 | Las cuatro tarjetas de servicio | `index.html`, sección `#soluciones` — reutiliza `.sectors`/`.sector`, no tiene CSS propio |
@@ -250,12 +251,42 @@ alineados, tipografía contable y paginación automática»). Cuando la tengas, 
 añade como tercera miniatura sin tocar CSS ni JS: basta un `<li>` más con su
 `data-cap` en los dos idiomas.
 
+## Las capturas de Legal & Cotidiano
+
+Diez pantallas reales de la plataforma de asesoría legal, tomadas como capturas
+sueltas (no de un video). Los originales PNG, de unos 3000 px de ancho, están en
+`Documents/Legal y Cotidiano App/Capturas Legal y Cotidiano/`, fuera de esta
+carpeta. Mismo tratamiento que el ERP y Contabilízate: tres tamaños por pantalla
+(`legal-*.jpg` 1440 px, `-mini` 760 px, `-t` 260 px), todas recortadas al mismo
+marco 1440:760 para que la tira quede pareja. Las diez suman unos 830 KB.
+
+**Aquí no hay mosaico, y no es un descuido.** Los nombres de clientes y abogados
+que se ven («Sofía Herrera Montalvo», «Mariana Cevallos Andrade»…) y sus correos
+`@yopmail.com` son **datos de demostración** sembrados en la base de pruebas, no
+personas reales — así lo confirmó Adrián. Por eso la nota bajo la galería dice
+«datos de demostración». Si algún día se reemplazan por capturas con usuarios
+reales, hay que tapar nombres y correos como en el ERP.
+
+**Un solo retoque:** en «Nueva consulta» el tooltip del navegador («Reload this
+page») había quedado encima del logo. Se reemplazó esa esquina con la misma zona
+de la captura de «Mi agenda» (mismo menú lateral de cliente, desplazada 2 px,
+alineada por píxel), así que no queda rastro.
+
+**El orden de la tira no es el de las capturas.** Arranca con el panel de
+consultas del administrador —la pantalla que mejor explica el producto— y luego
+sigue el recorrido real: página pública → inicio de sesión → nueva consulta →
+el caso y sus notificaciones → conversación → agenda del cliente → suscripción
+del abogado → gestión de abogados → suscripciones de la plataforma.
+
+La ficha usa el formato ancho, como el ERP, y no el compacto: con diez pantallas
+la tira de dos columnas de `.product--compact` habría quedado de cinco filas.
+
 ## `initShots()` ahora soporta varias galerías
 
 En `assets/main.js`, la función dejó de estar atada a un único `#shots` /
 `#viewer`. Ahora `initGaleria(containerId)` puede llamarse una vez por
-producto — hoy hay tres, `shots` (ERP), `shots-contab` (Contabilízate) y
-`shots-fact` (Orion Facturación) — y todas comparten el mismo
+producto — hoy hay cuatro, `shots` (ERP), `shots-contab` (Contabilízate),
+`shots-fact` (Orion Facturación) y `shots-legal` (Legal & Cotidiano) — y todas comparten el mismo
 `<dialog id="viewer">`. Si añades una galería a otro producto:
 
 1. Duplica el bloque `<figure class="shots" id="shots-...">` del HTML con un
@@ -350,14 +381,14 @@ mismo sitio, así que aquí queda anotado de dónde viene cada una:
 
 | Cifra | Qué cuenta | De dónde sale |
 |---|---|---|
-| **112** | Proyectos de software trabajados | Historial de trabajo de Adrián, en **otro repositorio** — no en las cuatro apps de este sitio |
+| **112** | Proyectos de software trabajados | Historial de trabajo de Adrián, en **otro repositorio** — no en las cinco apps de este sitio |
 | **46** | Clientes | Empresas facturadas directamente por Adrián |
 | **121** | Signals de Django que automatizan avisos | Contado sobre el código del ERP: 38 compras · 36 proyectos · 22 inventario · 18 ventas · 7 core |
 
 Las dos primeras **no se pueden verificar desde este repositorio**: dependen del
 historial y la facturación de Adrián. La tercera sí, y por eso lleva desglose.
 
-Cifras contadas sobre el código de las cuatro apps, por si alguna vez quieres
+Cifras contadas sobre el código de las cuatro primeras apps (antes de Legal & Cotidiano), por si alguna vez quieres
 volver a una de ellas: **216** componentes de interfaz (174 ERP · 22 Biometría ·
 19 Contabilízate · 1 Facturación), **6** módulos del ERP encadenados en un flujo,
 **145** endpoints de API, **54** pantallas de usuario, **40** modelos de datos.
@@ -435,7 +466,7 @@ DATA_DIR=./.data npm start     # http://localhost:3000
 
 Tres cosas que conviene revisar:
 
-1. **Datos de contacto.** El correo `info@qubisoft.com` y el teléfono
+1. **Datos de contacto.** El correo `infoqubisoft@gmail.com` y el teléfono
    `+593 99 489 4984` se tomaron del membrete de Orion Facturación.
    Confirma que siguen siendo los correctos.
 
@@ -458,15 +489,18 @@ Tres cosas que conviene revisar:
 
 3. **⚑ Lo que la sección «Soluciones» promete y todavía no tiene caso que
    enseñar.** Las cuatro tarjetas de `#soluciones` anuncian capacidades de
-   servicio, no funciones de las cuatro apps. Adrián confirmó que puede
+   servicio, no funciones de las cinco apps. Adrián confirmó que puede
    respaldarlas, pero **el portafolio publicado en este sitio es todo web**, así
    que hoy no hay nada que mostrar en pantalla para:
 
    | Afirmación en el sitio | Qué falta |
    |---|---|
-   | Aplicaciones móviles | Ninguna de las cuatro apps es móvil. Sin captura ni caso. |
+   | Aplicaciones móviles | Ninguna de las cinco apps es móvil. Sin captura ni caso. |
    | Kubernetes, CI/CD, monitoreo | Docker sí está verificado; de lo demás no hay rastro en el repositorio. |
-   | Pasarelas de pago | Ninguna integración de pago en las cuatro apps. |
+
+   «Pasarelas de pago» salió de esta tabla: Legal & Cotidiano cobra con la
+   pasarela **Nuvei** (pagos por consulta, suscripciones y webhooks), y la
+   ficha 05 lo muestra.
 
    No es que sean falsas: es que **si un prospecto las pide en la primera
    reunión, hay que poder enseñarlas**. En cuanto haya un proyecto que las
