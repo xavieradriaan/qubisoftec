@@ -272,11 +272,11 @@ page») había quedado encima del logo. Se reemplazó esa esquina con la misma z
 de la captura de «Mi agenda» (mismo menú lateral de cliente, desplazada 2 px,
 alineada por píxel), así que no queda rastro.
 
-**El orden de la tira no es el de las capturas.** Arranca con el panel de
-consultas del administrador —la pantalla que mejor explica el producto— y luego
-sigue el recorrido real: página pública → inicio de sesión → nueva consulta →
-el caso y sus notificaciones → conversación → agenda del cliente → suscripción
-del abogado → gestión de abogados → suscripciones de la plataforma.
+**El orden de la tira no es el de las capturas.** Arranca con la página pública,
+seguida del inicio de sesión y de la nueva consulta del cliente. Después vienen
+el resto: panel de consultas, el caso y sus notificaciones, conversación,
+agenda del cliente, suscripción del abogado, gestión de abogados y suscripciones
+de la plataforma.
 
 La ficha usa el formato ancho, como el ERP, y no el compacto: con diez pantallas
 la tira de dos columnas de `.product--compact` habría quedado de cinco filas.
