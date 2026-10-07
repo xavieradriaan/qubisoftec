@@ -466,7 +466,7 @@ DATA_DIR=./.data npm start     # http://localhost:3000
 
 Tres cosas que conviene revisar:
 
-1. **Datos de contacto.** El correo `infoqubisoft@gmail.com` y el teléfono
+1. **Datos de contacto.** El correo `info.qubisoft@gmail.com` y el teléfono
    `+593 99 489 4984` se tomaron del membrete de Orion Facturación.
    Confirma que siguen siendo los correctos.
 
