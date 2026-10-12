@@ -502,9 +502,18 @@
         .replace(/\{business\}/g, valor('business'))
         .replace(/\{sector\}/g, valor('sector'))
         .replace(/\{employees\}/g, valor('employees'))
-        .replace(/\{message\}/g, valor('message'))
-        .replace(/\s+/g, ' ')
-        .trim();
+        .replace(/\{message\}/g, valor('message'));
+
+      // Formato para el chat de WhatsApp: se respetan los saltos de línea (que
+      // son los que dan estructura al mensaje), se recortan los espacios
+      // sobrantes de cada línea y se evitan las líneas en blanco de más cuando
+      // algún campo opcional viene vacío. Quita también blancos al inicio/final.
+      texto = texto
+        .split('\n')
+        .map(function (linea) { return linea.replace(/[ \t]+/g, ' ').trim(); })
+        .join('\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .replace(/^\n+|\n+$/g, '');
 
       var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(texto);
 
