@@ -1122,13 +1122,13 @@
     <p class="aviso__lead">Leave us these details and you'll reach WhatsApp with your message already drafted.</p>
 
     <form class="wa__form" data-wa-number="593994894984"
-          data-wa-template="Hi, I'm {name} from {business} ({sector}). {message}">
+          data-wa-template="Hi, I'm {name} from {business} ({sector}, {employees} employees). {message}">
       <div class="wa__grid">
         <div class="wa__field wa__field--full">
           <label for="wa-nombre">Full name</label>
           <input id="wa-nombre" name="name" type="text" autocomplete="name" required placeholder="e.g. Mary Perez">
         </div>
-        <div class="wa__field">
+        <div class="wa__field wa__field--full">
           <label for="wa-empresa">Company or business</label>
           <input id="wa-empresa" name="business" type="text" autocomplete="organization" required placeholder="e.g. Andina Construction">
         </div>
@@ -1143,6 +1143,18 @@
             <option>Healthcare</option>
             <option>Education</option>
             <option>Other</option>
+          </select>
+        </div>
+        <div class="wa__field">
+          <label for="wa-empleados">Number of employees</label>
+          <select id="wa-empleados" name="employees" required>
+            <option value="" selected disabled>Choose an option</option>
+            <option>1–5</option>
+            <option>6–10</option>
+            <option>11–25</option>
+            <option>26–50</option>
+            <option>51–200</option>
+            <option>More than 200</option>
           </select>
         </div>
         <div class="wa__field wa__field--full">

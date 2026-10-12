@@ -472,6 +472,7 @@
         .replace(/\{name\}/g, valor('name'))
         .replace(/\{business\}/g, valor('business'))
         .replace(/\{sector\}/g, valor('sector'))
+        .replace(/\{employees\}/g, valor('employees'))
         .replace(/\{message\}/g, valor('message'))
         .replace(/\s+/g, ' ')
         .trim();

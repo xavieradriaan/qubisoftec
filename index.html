@@ -1119,13 +1119,13 @@
     <p class="aviso__lead">Déjanos estos datos y llegas a WhatsApp con el mensaje ya redactado.</p>
 
     <form class="wa__form" data-wa-number="593994894984"
-          data-wa-template="Hola, soy {name} de {business} ({sector}). {message}">
+          data-wa-template="Hola, soy {name} de {business} ({sector}, {employees} empleados). {message}">
       <div class="wa__grid">
         <div class="wa__field wa__field--full">
           <label for="wa-nombre">Nombre y apellido</label>
           <input id="wa-nombre" name="name" type="text" autocomplete="name" required placeholder="Ej. María Pérez">
         </div>
-        <div class="wa__field">
+        <div class="wa__field wa__field--full">
           <label for="wa-empresa">Empresa o negocio</label>
           <input id="wa-empresa" name="business" type="text" autocomplete="organization" required placeholder="Ej. Constructora Andina">
         </div>
@@ -1140,6 +1140,18 @@
             <option>Salud</option>
             <option>Educación</option>
             <option>Otro</option>
+          </select>
+        </div>
+        <div class="wa__field">
+          <label for="wa-empleados">Número de empleados</label>
+          <select id="wa-empleados" name="employees" required>
+            <option value="" selected disabled>Elige una opción</option>
+            <option>1–5</option>
+            <option>6–10</option>
+            <option>11–25</option>
+            <option>26–50</option>
+            <option>51–200</option>
+            <option>Más de 200</option>
           </select>
         </div>
         <div class="wa__field wa__field--full">

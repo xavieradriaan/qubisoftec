@@ -120,7 +120,7 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 | Los logos de la pasarela | `index.html`, listas `.marquee__group` (**hay dos, cámbialas iguales**) |
 | Velocidad de la pasarela | `assets/styles.css`, `.marquee__track` → `animation: … 46s …` |
 | Correo, WhatsApp y ubicación | `index.html`, sección `#contacto` |
-| El cuadro previo a WhatsApp (nombre, negocio, rubro) | `index.html` **y** `en/index.html`, `<dialog id="wa">` — el número y la plantilla del mensaje van en `data-wa-number` y `data-wa-template`; la lógica, en `initWhatsApp()` de `assets/main.js` |
+| El cuadro previo a WhatsApp (nombre, negocio, rubro, empleados) | `index.html` **y** `en/index.html`, `<dialog id="wa">` — el número y la plantilla del mensaje van en `data-wa-number` y `data-wa-template`; la lógica, en `initWhatsApp()` de `assets/main.js` |
 | Colores de marca | `assets/styles.css`, bloque `:root` |
 | Color de acento de cada producto | `assets/styles.css`, clases `.acc-erp`, `.acc-bio`, `.acc-fin`, `.acc-doc`, `.acc-legal` |
 | Tema por defecto | El script en el `<head>` de `index.html` |
@@ -605,8 +605,8 @@ con certificado HTTPS incluido.
   siguen siendo de sus titulares y por eso el aviso al pie de la pasarela.
 - **Ningún formulario envía datos a un servidor.** El sitio es estático y no
   procesa envíos: el correo usa `mailto:` y el número usa `wa.me`. Antes de
-  abrir WhatsApp aparece un cuadro breve que pide nombre, negocio, rubro y un
-  detalle opcional, pero **no es un formulario de servidor**: solo redacta el
+  abrir WhatsApp aparece un cuadro breve que pide nombre, negocio, rubro,
+  número de empleados y un detalle opcional, pero **no es un formulario de servidor**: solo redacta el
   mensaje en el propio navegador del visitante y salta a `wa.me` con el texto ya
   escrito. Nada se almacena en ninguna parte, y el botón del número funciona
   igual sin JavaScript (va directo a WhatsApp). Si algún día quieres un
