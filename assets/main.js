@@ -402,6 +402,97 @@
     });
   }
 
+  /* ---------- Cuadro previo a WhatsApp ----------
+     El enlace del número lleva `data-wa`. Con JavaScript, el clic no salta a
+     WhatsApp: abre un cuadro breve (nombre, negocio, rubro y un detalle
+     opcional) y, al enviarlo, redacta el mensaje y abre WhatsApp con él.
+
+     Nada de esto toca un servidor: el formulario solo compone una URL `wa.me`
+     en el propio navegador. Si el navegador no admite <dialog>, se deja el
+     enlace como está y va directo a WhatsApp, que es el respaldo natural.
+
+     El número y la plantilla del mensaje se leen de atributos `data-` del
+     formulario, así que main.js no lleva texto en ningún idioma: cada página
+     trae los suyos. */
+  function initWhatsApp() {
+    var dlg = document.getElementById('wa');
+    var abridores = document.querySelectorAll('[data-wa]');
+    if (!dlg || !abridores.length) return;
+
+    // Sin <dialog> nativo, el enlace sigue funcionando por sí solo.
+    if (typeof dlg.showModal !== 'function') return;
+
+    var form = dlg.querySelector('.wa__form');
+    if (!form) return;
+
+    var numero = form.getAttribute('data-wa-number') || '';
+    var plantilla = form.getAttribute('data-wa-template') || '';
+
+    function valor(campo) {
+      var el = form.elements[campo];
+      var v = el && typeof el.value === 'string' ? el.value.trim() : '';
+      return v;
+    }
+
+    for (var i = 0; i < abridores.length; i++) {
+      abridores[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        // Si ya está abierto, no se reabre (showModal lanzaría un error).
+        if (dlg.open) return;
+        // Se limpia en cada apertura: lo que se escribió antes no se arrastra.
+        form.reset();
+        dlg.showModal();
+        var primero = form.querySelector('input, select, textarea');
+        if (primero) primero.focus();
+      });
+    }
+
+    var cerrar = document.getElementById('wa-cerrar');
+    if (cerrar) cerrar.addEventListener('click', function () { dlg.close(); });
+
+    var cancelar = dlg.querySelector('[data-wa-cancelar]');
+    if (cancelar) cancelar.addEventListener('click', function () { dlg.close(); });
+
+    // Clic en el fondo oscuro: el <dialog> ocupa la pantalla, así que se
+    // comprueba que el punto pulsado quede fuera de la tarjeta.
+    dlg.addEventListener('click', function (e) {
+      var caja = dlg.querySelector('.aviso__inner').getBoundingClientRect();
+      var fuera = e.clientX < caja.left || e.clientX > caja.right ||
+                  e.clientY < caja.top  || e.clientY > caja.bottom;
+      if (fuera) dlg.close();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      // La validación nativa (required) ya bloquea el envío incompleto; este
+      // respaldo cubre el caso de un navegador que no la muestre.
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var texto = plantilla
+        .replace(/\{name\}/g, valor('name'))
+        .replace(/\{business\}/g, valor('business'))
+        .replace(/\{sector\}/g, valor('sector'))
+        .replace(/\{message\}/g, valor('message'))
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(texto);
+
+      // Un enlace temporal en lugar de window.open: respeta target y rel, y
+      // no depende de que el navegador devuelva la ventana nueva (con
+      // `noopener` devuelve null aunque la abra).
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      dlg.close();
+    });
+  }
+
   initTheme();
   initMobileNav();
   initCounters();
@@ -409,6 +500,7 @@
   initShots();
   initYear();
   initPrivacidad();
+  initWhatsApp();
   initAnalytics();
   initVisitas();
 })();

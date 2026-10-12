@@ -665,6 +665,44 @@ img,svg { max-width:100%; }
 .aviso__close:hover { background:var(--p-600); border-color:var(--p-600); color:#fff; }
 .aviso__close .ico { width:17px; height:17px; }
 
+/* ---------- Cuadro previo a WhatsApp ----------
+   Reutiliza el armazón del aviso (misma caja, fondo y botón de cierre) y solo
+   añade los campos. Son deliberadamente pocos: nombre, negocio, rubro y un
+   detalle opcional. Cada campo que se añade baja la tasa de respuesta, así que
+   lo que no se necesita para responder bien no está. */
+.wa__form { display:grid; gap:1rem; margin-top:1.25rem; }
+.wa__grid { display:grid; gap:1rem; }
+@media (min-width: 560px) { .wa__grid { grid-template-columns:1fr 1fr; } }
+.wa__field { display:grid; gap:.4rem; }
+.wa__field--full { grid-column:1 / -1; }
+.wa__field label { font-size:.8rem; font-weight:600; color:var(--text); }
+.wa__opt { font-weight:400; color:var(--text-2); }
+.wa__field input,
+.wa__field select,
+.wa__field textarea {
+  width:100%; padding:.7rem .85rem;
+  font:inherit; font-size:.92rem; color:var(--text);
+  background:var(--surface-2);
+  border:1px solid var(--border); border-radius:var(--r-sm);
+  transition:border-color .2s, box-shadow .2s;
+}
+.wa__field textarea { resize:vertical; min-height:74px; }
+.wa__field input::placeholder,
+.wa__field textarea::placeholder { color:var(--text-2); opacity:.75; }
+.wa__field input:focus,
+.wa__field select:focus,
+.wa__field textarea:focus {
+  outline:none; border-color:var(--p-600);
+  box-shadow:0 0 0 3px rgba(124,58,237,.18);
+}
+.wa__nota {
+  display:flex; align-items:flex-start; gap:.5rem;
+  font-size:.78rem; line-height:1.55; color:var(--text-2);
+}
+.wa__nota .ico { width:15px; height:15px; margin-top:.15rem; flex:none; color:var(--success); stroke-width:2.2; }
+.wa__acciones { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.35rem; }
+.wa__acciones .btn { flex:1 1 auto; }
+
 /* ---------- Caso destacado ---------- */
 .case { display:grid; grid-template-columns:1fr; gap:1.25rem; }
 @media (min-width: 820px) { .case { grid-template-columns:repeat(3,1fr); } }
