@@ -608,7 +608,10 @@ con certificado HTTPS incluido.
   abrir WhatsApp aparece un cuadro breve que pide nombre, negocio, rubro,
   número de empleados y un detalle opcional, pero **no es un formulario de servidor**: solo redacta el
   mensaje en el propio navegador del visitante y salta a `wa.me` con el texto ya
-  escrito. Nada se almacena en ninguna parte, y el botón del número funciona
+  escrito. Los campos de nombre y negocio pasan a mayúsculas al escribir
+  (`data-uppercase`), y se normalizan otra vez al enviar por si el navegador
+  autocompletó sin avisar. Nada se almacena en ninguna parte, y el botón del
+  número funciona
   igual sin JavaScript (va directo a WhatsApp). Si algún día quieres un
   formulario que llegue a tu correo, Netlify Forms o Formspree lo resuelven sin
   cambiar de stack.

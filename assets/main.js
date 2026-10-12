@@ -402,6 +402,28 @@
     });
   }
 
+  /* ---------- Mayúsculas automáticas en los campos de nombre ----------
+     Los campos con `data-uppercase` pasan a mayúsculas mientras se escriben,
+     se pegan o se dictan, sin importar cómo llegue el texto. La conversión se
+     hace sobre el valor real (no con CSS, que solo cambiaría lo que se ve), así
+     que el mensaje de WhatsApp sale ya en mayúsculas. */
+  function initMayusculas() {
+    var campos = document.querySelectorAll('[data-uppercase]');
+    for (var i = 0; i < campos.length; i++) {
+      (function (el) {
+        el.addEventListener('input', function () {
+          var fin = el.selectionEnd;
+          var mayus = el.value.toUpperCase();
+          if (mayus === el.value) return;
+          el.value = mayus;
+          // toUpperCase cambia la longitud en contadísimos caracteres (p. ej. ß);
+          // se conserva el cursor y, si el navegador no lo permite, no pasa nada.
+          try { el.setSelectionRange(fin, fin); } catch (e) {}
+        });
+      })(campos[i]);
+    }
+  }
+
   /* ---------- Cuadro previo a WhatsApp ----------
      El enlace del número lleva `data-wa`. Con JavaScript, el clic no salta a
      WhatsApp: abre un cuadro breve (nombre, negocio, rubro y un detalle
@@ -468,6 +490,13 @@
       // respaldo cubre el caso de un navegador que no la muestre.
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
+      // Red de seguridad: si el navegador autocompletó los campos sin disparar
+      // el evento `input`, se normalizan aquí antes de leerlos.
+      var enMayusculas = form.querySelectorAll('[data-uppercase]');
+      for (var j = 0; j < enMayusculas.length; j++) {
+        enMayusculas[j].value = enMayusculas[j].value.toUpperCase();
+      }
+
       var texto = plantilla
         .replace(/\{name\}/g, valor('name'))
         .replace(/\{business\}/g, valor('business'))
@@ -501,6 +530,7 @@
   initShots();
   initYear();
   initPrivacidad();
+  initMayusculas();
   initWhatsApp();
   initAnalytics();
   initVisitas();
