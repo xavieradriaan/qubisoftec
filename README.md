@@ -1,8 +1,8 @@
 # Sitio web de Qubisoft
 
-Página estática de portafolio que presenta las cinco aplicaciones desarrolladas:
-**Orion ERP**, **Orion Biometría**, **Contabilízate**, **Orion Facturación** y
-**Legal & Cotidiano**.
+Página estática de portafolio que presenta las seis aplicaciones desarrolladas:
+**Orion ERP**, **Orion Biometría**, **Contabilízate**, **Orion Facturación**,
+**Legal & Cotidiano** y **Orion Shop**.
 
 Hereda el sistema de diseño de Orion ERP y Orion Biometría: púrpura `#7c3aed`,
 tema oscuro por defecto, tipografía Inter y JetBrains Mono, iconos Heroicons.
@@ -109,8 +109,8 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 
 | Quiero cambiar… | Está en… |
 |---|---|
-| Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-5` |
-| El índice de productos (las tarjetas 01–05) | `index.html`, lista `.pindex` |
+| Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-6` |
+| El índice de productos (las tarjetas 01–06) | `index.html`, lista `.pindex` |
 | Estado de un producto (En producción / Prototipo) | `index.html`, la píldora dentro de `.product__bar` |
 | Las cifras de la banda de métricas | `index.html`, `.metrics__grid` — cambia el `data-count` **y** el texto visible |
 | El año (copyright y órdenes de trabajo) | **No se toca:** se actualiza solo. Ver abajo |
@@ -382,7 +382,7 @@ mismo sitio, así que aquí queda anotado de dónde viene cada una:
 
 | Cifra | Qué cuenta | De dónde sale |
 |---|---|---|
-| **112** | Proyectos de software trabajados | Historial de trabajo de Adrián, en **otro repositorio** — no en las cinco apps de este sitio |
+| **112** | Proyectos de software trabajados | Historial de trabajo de Adrián, en **otro repositorio** — no en las seis apps de este sitio |
 | **46** | Clientes | Empresas facturadas directamente por Adrián |
 | **121** | Signals de Django que automatizan avisos | Contado sobre el código del ERP: 38 compras · 36 proyectos · 22 inventario · 18 ventas · 7 core |
 
@@ -496,7 +496,7 @@ Tres cosas que conviene revisar:
 
    | Afirmación en el sitio | Qué falta |
    |---|---|
-   | Aplicaciones móviles | Ninguna de las cinco apps es móvil. Sin captura ni caso. |
+   | Aplicaciones móviles | Orion Shop es una PWA móvil (capturas en `#producto-6`), pero sigue sin haber una app nativa ni un caso. Sin caso destacado. |
    | Kubernetes, CI/CD, monitoreo | Docker sí está verificado; de lo demás no hay rastro en el repositorio. |
 
    «Pasarelas de pago» salió de esta tabla: Legal & Cotidiano cobra con la
@@ -636,3 +636,15 @@ con certificado HTTPS incluido.
   eso existe `.product--compact.product--flip { grid-template-columns:.65fr 1.35fr }`.
   Hoy solo la usa Orion Facturación; si marcas otra ficha con ambas clases, ya
   está resuelto.
+
+---
+
+## Orion Shop (`#producto-6`)
+
+Punto de venta para tiendas de barrio. Las cinco capturas (`shop-*.jpg`, tres
+tamaños cada una como el resto) son de un celular, por eso su galería es
+vertical (`.shots--phone`, ver `assets/styles.css`). Se recortaron la hora y la
+reproducción de música del celular y la barra del navegador, que mostraba la
+dirección del túnel de pruebas. Lo que dice la ficha sale del README del
+proyecto (`~/Documents/Orion-Shop`); la facturación electrónica del SRI y el
+control de stock son «Fase 2» allí y por eso **no** se mencionan en el sitio.

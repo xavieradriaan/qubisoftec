@@ -138,7 +138,7 @@
     </div>
 
     <!-- Maqueta ilustrativa y deliberadamente genérica: no representa a ninguno
-         de los cinco productos. Las capturas reales del panel de Orion ERP
+         de los seis productos. Las capturas reales del panel de Orion ERP
          están más abajo, en su ficha (#producto-1). Aquí el vocabulario se
          mantiene neutro a propósito, para que se reconozca en ella tanto una
          constructora como una bodega, una cuadrilla en campo o un retail. -->
@@ -185,7 +185,7 @@
     <div class="metrics__grid" id="metrics">
       <div class="metric">
         <!-- 112 proyectos y 46 clientes salen del historial de trabajo de Adrián,
-             que vive en otro repositorio (no en las cinco apps de este sitio).
+             que vive en otro repositorio (no en las seis apps de este sitio).
              Si cambian, hay que actualizar el número Y el texto visible: el
              data-count es el destino del conteo animado. -->
         <span class="metric__ico" aria-hidden="true"><svg class="ico"><use href="#i-squares"/></svg></span>
@@ -325,11 +325,11 @@
       <h2 id="h-productos">Algunos de nuestros trabajos</h2>
       <p class="section__sub">
         Cada uno responde a una necesidad distinta y opera de forma independiente.
-        No son módulos de un mismo sistema, sino cinco aplicaciones autónomas.
+        No son módulos de un mismo sistema, sino seis aplicaciones autónomas.
       </p>
     </header>
 
-    <!-- Índice. Su único trabajo es que se entienda «son cinco» antes de leer nada. -->
+    <!-- Índice. Su único trabajo es que se entienda «son seis» antes de leer nada. -->
     <ol class="pindex">
       <li class="card pcard acc-erp">
         <a href="#producto-1">
@@ -368,6 +368,14 @@
           <span class="pcard__cat">Servicios legales</span>
           <h3>Legal &amp; Cotidiano</h3>
           <p>Consultas con abogados en línea: asignación, agenda y cobro en un mismo lugar.</p>
+          <span class="pcard__go">Ver detalle <svg class="ico"><use href="#i-arrow-right"/></svg></span>
+        </a>
+      </li>
+      <li class="card pcard acc-shop">
+        <a href="#producto-6">
+          <span class="pcard__cat">Punto de venta</span>
+          <h3>Orion Shop</h3>
+          <p>Vende, cobra y cuadra la caja de tu tienda desde el celular.</p>
           <span class="pcard__go">Ver detalle <svg class="ico"><use href="#i-arrow-right"/></svg></span>
         </a>
       </li>
@@ -695,6 +703,69 @@
               <li><button type="button" role="tab" aria-selected="false" data-i="9" data-cap="Legal &amp; Cotidiano · Suscripciones de la plataforma"><img src="assets/capturas/legal-suscripciones-t.jpg" width="260" height="137" alt="Suscripciones de la plataforma" loading="lazy"></button></li>
             </ul>
             <figcaption class="shots__note">El sistema en producción · datos de demostración</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 06 · Orion Shop ---------- -->
+    <article class="product product--compact product--flip acc-shop" id="producto-6" aria-labelledby="h-p6">
+      <div class="product__bar">
+        <span class="product__cat">Punto de venta · Tiendas de barrio</span>
+        <span class="pill pill--live">En producción</span>
+      </div>
+
+      <div class="product__grid">
+        <div class="product__copy">
+          <div class="product__title">
+            <span class="brand__mark brand__mark--md" aria-hidden="true"><svg class="ico"><use href="#i-store"/></svg></span>
+            <div>
+              <h3 id="h-p6">Orion Shop</h3>
+              <p class="product__tag">Vender y cuadrar la caja desde el celular, sin cargar inventario</p>
+            </div>
+          </div>
+
+          <dl class="pmeta">
+            <div><dt>Para quién</dt><dd>Tiendas de barrio y pequeños comercios</dd></div>
+            <div><dt>Qué resuelve</dt><dd>Cuadernos y cuentas a mano; empezar a vender sin cargar inventario</dd></div>
+            <div><dt>Alcance</dt><dd>Venta, cobro, caja, fiado, productos y reportes</dd></div>
+          </dl>
+
+          <p class="product__lead">
+            El tendero empieza a vender desde el primer minuto: escanea o busca el producto, o cobra un monto directo, y la venta queda registrada con su forma de pago. Al final del día la caja ya está calculada: sabe cuánto efectivo debería tener, cuánto fió y cuánto gastó.
+          </p>
+          <ul class="feats">
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Vende sin cargar inventario.</b> Busca el producto o escanea su código de barras con la cámara del celular; si es nuevo, se guarda solo para la próxima vez. También puede cobrar un monto directo.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Tres formas de cobro.</b> Efectivo, transferencia o fiado. Al confirmar, la venta se puede enviar por WhatsApp o imprimir.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Caja que cuadra.</b> Apertura, ventas, gastos, retiros y dinero que entra. El sistema calcula el efectivo que deberías tener y, al cerrar, guarda lo esperado, lo contado y la diferencia.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Fiado ordenado.</b> Libreta de clientes con lo que deben y sus abonos, en lugar del cuaderno.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Reportes.</b> Ventas del período, productos más vendidos, gastos y rendimiento por cajero.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Funciona sin señal.</b> Se instala como app y las ventas hechas sin conexión se suben solas cuando vuelve el internet.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Dueño y cajero.</b> Cada tienda tiene sus propios datos y el cajero puede vender y cobrar sin ver la configuración del negocio.</span></li>
+          </ul>
+        </div>
+
+        <!-- Capturas reales tomadas desde un celular (la app es móvil primero), por
+             eso la galería es vertical (.shots--phone). Se recortó la barra del
+             navegador, que mostraba la dirección del túnel de pruebas, y la hora
+             y la reproducción de música del celular. La interfaz está en español. -->
+        <div class="product__art">
+          <figure class="shots shots--phone" id="shots-shop">
+            <button class="shots__main" type="button" data-open="0">
+              <span class="mock__bar" aria-hidden="true"><span></span><span></span><span></span><em class="shots__cap">Orion Shop · Venta en curso</em></span>
+              <img class="shots__img" src="assets/capturas/shop-vender-mini.jpg" width="440" height="807"
+                   alt="Venta en curso en Orion Shop, con cuatro productos y el botón para cobrar" loading="lazy" decoding="async">
+              <span class="shots__cue"><svg class="ico"><use href="#i-expand"/></svg> Ampliar</span>
+            </button>
+
+            <ul class="shots__strip" role="tablist" aria-label="Pantallas de Orion Shop">
+              <li><button type="button" role="tab" aria-selected="true" data-i="0" data-cap="Orion Shop · Venta en curso"><img src="assets/capturas/shop-vender-t.jpg" width="150" height="275" alt="Venta en curso" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Orion Shop · Cobrar la venta"><img src="assets/capturas/shop-cobrar-t.jpg" width="150" height="275" alt="Cobrar" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="2" data-cap="Orion Shop · Venta registrada"><img src="assets/capturas/shop-venta-ok-t.jpg" width="150" height="275" alt="Venta registrada" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="3" data-cap="Orion Shop · Caja actual"><img src="assets/capturas/shop-caja-t.jpg" width="150" height="275" alt="Caja actual" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="4" data-cap="Orion Shop · Pantalla de inicio"><img src="assets/capturas/shop-inicio-t.jpg" width="150" height="275" alt="Pantalla de inicio" loading="lazy"></button></li>
+            </ul>
+            <figcaption class="shots__note">El sistema en producción · capturas desde un celular</figcaption>
           </figure>
         </div>
       </div>

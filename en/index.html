@@ -138,7 +138,7 @@
     </div>
 
     <!-- Illustrative mockup, deliberately generic: it does not represent any of
-         the five products. The real screenshots of the Orion ERP dashboard are
+         the six products. The real screenshots of the Orion ERP dashboard are
          further down, in its own card (#producto-1). The wording here is kept
          neutral on purpose, so a builder, a warehouse, a field crew, or a
          retailer can all see themselves in it. -->
@@ -185,7 +185,7 @@
     <div class="metrics__grid" id="metrics">
       <div class="metric">
         <!-- 112 projects and 46 clients come from Adrián's work history, which
-             lives in a different repository (not the five apps on this site).
+             lives in a different repository (not the six apps on this site).
              If they change, update the number AND the visible text: data-count
              is the target of the animated count. -->
         <span class="metric__ico" aria-hidden="true"><svg class="ico"><use href="#i-squares"/></svg></span>
@@ -324,11 +324,11 @@
       <h2 id="h-productos">Some of our work</h2>
       <p class="section__sub">
         Each one addresses a different need and operates independently.
-        They aren't modules of a single system — they're five standalone applications.
+        They aren't modules of a single system — they're six standalone applications.
       </p>
     </header>
 
-    <!-- Index. Its only job is to make "there are five" clear before reading anything else. -->
+    <!-- Index. Its only job is to make "there are six" clear before reading anything else. -->
     <ol class="pindex">
       <li class="card pcard acc-erp">
         <a href="#producto-1">
@@ -367,6 +367,14 @@
           <span class="pcard__cat">Legal services</span>
           <h3>Legal &amp; Cotidiano</h3>
           <p>Online consultations with lawyers: assignment, scheduling, and payment in one place.</p>
+          <span class="pcard__go">See details <svg class="ico"><use href="#i-arrow-right"/></svg></span>
+        </a>
+      </li>
+      <li class="card pcard acc-shop">
+        <a href="#producto-6">
+          <span class="pcard__cat">Point of sale</span>
+          <h3>Orion Shop</h3>
+          <p>Sell, charge and balance the cash drawer of your shop from your phone.</p>
           <span class="pcard__go">See details <svg class="ico"><use href="#i-arrow-right"/></svg></span>
         </a>
       </li>
@@ -695,6 +703,69 @@
               <li><button type="button" role="tab" aria-selected="false" data-i="9" data-cap="Legal &amp; Cotidiano · Platform subscriptions"><img src="../assets/capturas/legal-suscripciones-t.jpg" width="260" height="137" alt="Platform subscriptions" loading="lazy"></button></li>
             </ul>
             <figcaption class="shots__note">The system in production · demo data</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 06 · Orion Shop ---------- -->
+    <article class="product product--compact product--flip acc-shop" id="producto-6" aria-labelledby="h-p6">
+      <div class="product__bar">
+        <span class="product__cat">Point of sale · Neighborhood shops</span>
+        <span class="pill pill--live">Live in production</span>
+      </div>
+
+      <div class="product__grid">
+        <div class="product__copy">
+          <div class="product__title">
+            <span class="brand__mark brand__mark--md" aria-hidden="true"><svg class="ico"><use href="#i-store"/></svg></span>
+            <div>
+              <h3 id="h-p6">Orion Shop</h3>
+              <p class="product__tag">Selling and balancing the till from your phone, with no inventory to load first</p>
+            </div>
+          </div>
+
+          <dl class="pmeta">
+            <div><dt>Who it's for</dt><dd>Neighborhood shops and small businesses</dd></div>
+            <div><dt>What it solves</dt><dd>Notebooks and hand calculations; starting to sell without loading inventory</dd></div>
+            <div><dt>Scope</dt><dd>Sales, payments, cash drawer, store credit, products and reports</dd></div>
+          </dl>
+
+          <p class="product__lead">
+            The shopkeeper starts selling from the first minute: scan or search for the product, or charge a direct amount, and the sale is recorded with its payment method. By the end of the day the till is already worked out: how much cash they should have, how much went on credit and how much was spent.
+          </p>
+          <ul class="feats">
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Sell without loading inventory.</b> Search for a product or scan its barcode with the phone camera; if it's new, it's saved for next time. A direct amount can also be charged.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Three ways to get paid.</b> Cash, bank transfer or store credit. Once confirmed, the sale can be sent over WhatsApp or printed.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>A till that balances.</b> Opening, sales, expenses, withdrawals and cash put in. The system works out the cash you should have and, on closing, stores what was expected, what was counted and the difference.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Store credit, in order.</b> A customer ledger with what each one owes and their payments, instead of the notebook.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Reports.</b> Sales for the period, best-selling products, expenses and performance per cashier.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Works without a signal.</b> It installs as an app, and sales made offline upload by themselves when the connection returns.</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span><b>Owner and cashier.</b> Each shop has its own data, and the cashier can sell and charge without seeing the business settings.</span></li>
+          </ul>
+        </div>
+
+        <!-- Capturas reales tomadas desde un celular (la app es móvil primero), por
+             eso la galería es vertical (.shots--phone). Se recortó la barra del
+             navegador, que mostraba la dirección del túnel de pruebas, y la hora
+             y la reproducción de música del celular. La interfaz está en español. -->
+        <div class="product__art">
+          <figure class="shots shots--phone" id="shots-shop">
+            <button class="shots__main" type="button" data-open="0">
+              <span class="mock__bar" aria-hidden="true"><span></span><span></span><span></span><em class="shots__cap">Orion Shop · Sale in progress</em></span>
+              <img class="shots__img" src="../assets/capturas/shop-vender-mini.jpg" width="440" height="807"
+                   alt="Orion Shop sale in progress, with four products and the charge button" loading="lazy" decoding="async">
+              <span class="shots__cue"><svg class="ico"><use href="#i-expand"/></svg> Expand</span>
+            </button>
+
+            <ul class="shots__strip" role="tablist" aria-label="Orion Shop screens">
+              <li><button type="button" role="tab" aria-selected="true" data-i="0" data-cap="Orion Shop · Sale in progress"><img src="../assets/capturas/shop-vender-t.jpg" width="150" height="275" alt="Sale in progress" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="1" data-cap="Orion Shop · Charging the sale"><img src="../assets/capturas/shop-cobrar-t.jpg" width="150" height="275" alt="Charge" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="2" data-cap="Orion Shop · Sale recorded"><img src="../assets/capturas/shop-venta-ok-t.jpg" width="150" height="275" alt="Sale recorded" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="3" data-cap="Orion Shop · Current cash drawer"><img src="../assets/capturas/shop-caja-t.jpg" width="150" height="275" alt="Current cash drawer" loading="lazy"></button></li>
+              <li><button type="button" role="tab" aria-selected="false" data-i="4" data-cap="Orion Shop · Launch screen"><img src="../assets/capturas/shop-inicio-t.jpg" width="150" height="275" alt="Launch screen" loading="lazy"></button></li>
+            </ul>
+            <figcaption class="shots__note">Live in production · screenshots taken on a phone</figcaption>
           </figure>
         </div>
       </div>
