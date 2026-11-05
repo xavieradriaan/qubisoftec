@@ -274,6 +274,99 @@ img,svg { max-width:100%; }
 .hero__proof li { display:flex; align-items:center; gap:.45rem; font-size:.85rem; color:var(--text-2); }
 .hero__proof .ico { width:16px; height:16px; color:var(--success); stroke-width:2.2; }
 
+/* ---------- Áreas del negocio ---------- */
+/* El hero ya aporta su propio `padding-block` inferior; con el `--step` normal
+   quedaba casi el doble de aire entre el titular y la rejilla, y la sección
+   dejaba de leerse como su continuación. */
+.section--tight { padding-top:clamp(1rem, 2vw, 1.75rem); }
+
+/* Dos columnas ya en móvil, con el ícono encima del nombre. En una sola
+   columna las nueve fichas formaban un muro de ~700px que había que recorrer
+   entero antes de llegar a nada; apiladas de dos en dos ocupan la mitad y se
+   leen como lo que son, una rejilla de íconos. Desde 640px cabe el nombre al
+   lado del ícono y la ficha vuelve a ser horizontal.
+   Tres columnas desde 980px, el mismo corte que `.sectors`: con cuatro, el
+   nombre del área quedaba demasiado estrecho. */
+.areas { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+@media (min-width: 640px) { .areas { gap:.85rem; } }
+@media (min-width: 980px) { .areas { grid-template-columns:repeat(3,1fr); } }
+/* En dos columnas, nueve fichas dejan la última sola con un hueco al lado.
+   Mismo recurso que ya usa `.pcard` en el índice de productos. */
+@media (max-width: 979.98px) {
+  .area:last-child:nth-child(odd) { grid-column:1 / -1; }
+}
+
+.area { overflow:hidden; transition:border-color .2s, transform .2s; }
+.area:hover { border-color:var(--p-600); transform:translateY(-2px); }
+.area__btn {
+  display:flex; flex-direction:column; align-items:flex-start; gap:.6rem;
+  padding:.9rem; height:100%;
+}
+@media (min-width: 640px) {
+  .area__btn { flex-direction:row; align-items:center; gap:.85rem; padding:1rem 1.1rem; }
+}
+.area__name { font-size:.88rem; font-weight:600; line-height:1.3; }
+@media (min-width: 640px) { .area__name { font-size:.92rem; } }
+/* Chip neutro, con la anatomía de `.metric__ico`. */
+.area__ico {
+  display:grid; place-items:center; width:40px; height:40px; flex:none;
+  border-radius:var(--r-sm); background:var(--surface-2); border:1px solid var(--border);
+  color:var(--p-400); transition:background-color .2s, color .2s, border-color .2s;
+}
+.area__ico .ico { width:20px; height:20px; }
+/* La ficha activa toma el degradado de marca en el chip: es lo único que ata
+   visualmente la ficha con el panel que se abrió debajo, que en escritorio
+   puede quedar dos filas más abajo. */
+.area.is-active { border-color:var(--p-600); }
+.area.is-active .area__ico {
+  background-image:var(--brand-gradient); background-color:transparent;
+  border-color:transparent; color:#fff;
+}
+
+.apanels { margin-top:1.1rem; }
+.apanel {
+  display:grid; grid-template-columns:1fr; gap:1.5rem;
+  padding:1.5rem; border-radius:var(--r-md);
+  background:var(--surface); border:1px solid var(--border);
+  border-top:3px solid var(--p-600);   /* eco del borde superior de `.pcard > a` */
+  box-shadow:var(--shadow-sm);
+}
+/* `display:grid` gana al `display:none` que el navegador aplica a [hidden]:
+   sin esta línea los nueve paneles se dibujan a la vez. */
+.apanel[hidden] { display:none; }
+@media (min-width: 900px) { .apanel { grid-template-columns:1.05fr .95fr; align-items:center; } }
+.apanel__copy { display:grid; gap:.8rem; align-content:start; justify-items:start; }
+.apanel__copy h3 { font-size:1.2rem; max-width:24ch; }
+.apanel__copy .feats { gap:.55rem; }
+.apanel__copy .btn { margin-top:.35rem; }
+/* Orion Biometría no tiene capturas (su ficha usa la maqueta CSS del celular),
+   así que su panel va sin imagen y el texto ocupa las dos columnas en vez de
+   dejar media tarjeta vacía. */
+.apanel--noart .apanel__copy { grid-column:1 / -1; }
+.apanel--noart .apanel__copy h3 { max-width:36ch; }
+
+.apanel__art { margin:0; display:grid; gap:.5rem; }
+/* Alto libre con tope, no una proporción fija. Las capturas apaisadas (760×401)
+   dentro de un marco 16:10 quedaban con franjas grises arriba y abajo que
+   parecían un error; así llenan el ancho con su proporción real y sin bandas.
+   El tope solo actúa sobre la de Orion Shop, que es vertical (440×807): con
+   `contain` se centra dentro del marco y se lee como lo que es, un celular. */
+.apanel__art img {
+  display:block; width:100%; height:auto; max-height:300px; object-fit:contain;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-sm);
+}
+.apanel__art figcaption { font-size:.75rem; color:var(--text-2); text-align:center; }
+
+.area-more {
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  margin-top:1.1rem; padding:1rem 1.25rem;
+  font-size:.92rem; font-weight:600;
+  transition:border-color .2s, transform .2s;
+}
+.area-more:hover { border-color:var(--p-600); transform:translateY(-2px); }
+.area-more .ico { width:17px; height:17px; flex:none; color:var(--p-400); transition:transform .2s; }
+.area-more:hover .ico { transform:translateX(3px); }
+
 /* ---------- Maquetas de interfaz (decorativas) ---------- */
 .mock {
   border:1px solid var(--border); border-radius:var(--r-lg);
@@ -1009,7 +1102,8 @@ img,svg { max-width:100%; }
    del sistema activo la pasarela se detiene y pasa a ser una rejilla estática. */
 @media (prefers-reduced-motion: reduce) {
   .ring { animation:none; }
-  .btn:hover, .sector:hover, .pcard:hover { transform:none; }
+  .btn:hover, .sector:hover, .pcard:hover,
+  .area:hover, .area-more:hover, .area-more:hover .ico { transform:none; }
   .marquee { -webkit-mask-image:none; mask-image:none; }
   .marquee__track { animation:none; width:auto; flex-wrap:wrap; justify-content:center; }
   .marquee__group { flex-wrap:wrap; justify-content:center; padding-right:0; row-gap:1.25rem; }

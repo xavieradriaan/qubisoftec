@@ -50,18 +50,19 @@ problema a pedir una cotización.
 | # | Sección | Id | Para qué está |
 |---|---|---|---|
 | 1 | Hero | `#top` | Qué haces, en cinco segundos |
-| 2 | Métricas | — | Volumen de trabajo |
-| 3 | Empresas | `#empresas` | Prueba social |
-| 4 | **Problemas** | `#problemas` | Que el visitante se reconozca |
-| 5 | **Soluciones** | `#soluciones` | Qué puede contratarte |
-| 6 | Proyectos | `#productos` | Que existe y funciona |
-| 7 | Caso destacado | `#caso` | Un proyecto a fondo |
-| 8 | Sectores | `#sectores` | Conoces su contexto |
-| 9 | Proceso | `#proceso` | Cómo se trabaja |
-| 10 | Cloud e infraestructura | `#infraestructura` | Objeciones técnicas |
-| 11 | Preguntas | `#faq` | Objeciones comerciales |
-| 12 | **Casos de éxito** | `#casos` | Resultado (⚑ texto de ejemplo) |
-| 13 | Contacto | `#contacto` | La acción |
+| 2 | **Áreas** | `#areas` | Que reconozca su problema en un ícono |
+| 3 | Métricas | — | Volumen de trabajo |
+| 4 | Empresas | `#empresas` | Prueba social |
+| 5 | **Problemas** | `#problemas` | Que el visitante se reconozca |
+| 6 | **Soluciones** | `#soluciones` | Qué puede contratarte |
+| 7 | Proyectos | `#productos` | Que existe y funciona |
+| 8 | Caso destacado | `#caso` | Un proyecto a fondo |
+| 9 | Sectores | `#sectores` | Conoces su contexto |
+| 10 | Proceso | `#proceso` | Cómo se trabaja |
+| 11 | Cloud e infraestructura | `#infraestructura` | Objeciones técnicas |
+| 12 | Preguntas | `#faq` | Objeciones comerciales |
+| 13 | **Casos de éxito** | `#casos` | Resultado (⚑ texto de ejemplo) |
+| 14 | Contacto | `#contacto` | La acción |
 
 **Problemas y Soluciones comparten el fondo `--alt`** para leerse como un solo
 bloque de argumento (problema → respuesta). La regla
@@ -70,7 +71,79 @@ la primera y el superior de la segunda dibujen una raya doble en medio.
 
 El navbar solo lleva cinco entradas (Soluciones · Proyectos · Casos · Proceso ·
 Contacto) más el botón de llamada a la acción; el pie mantiene el índice
-completo.
+completo. **Áreas no se añadió al navbar a propósito**: está justo debajo del
+hero, así que nadie necesita un enlace para llegar, y meterla ahí rompería el
+límite de cinco entradas. En el pie sí aparece, la primera de la lista.
+
+---
+
+## La página siempre empieza en la cabecera
+
+Hay enlaces repartidos por ahí — correos viejos, firmas, mensajes — que
+apuntan a `…/#contacto` o a otra ancla. Con el comportamiento normal del
+navegador, quien los abre cae directo en esa sección y **nunca ve el titular**:
+el sitio se presenta por la mitad.
+
+El script del `<head>` de las dos páginas lo evita. Hace cuatro cosas:
+
+1. Quita el ancla de la URL con `history.replaceState` **antes** de que el
+   navegador salte, conservando la ruta y los parámetros (`?utm_…`).
+2. Pone `history.scrollRestoration = 'manual'`, para que al recargar tampoco
+   vuelva a la posición anterior.
+3. Fuerza el scroll arriba en `DOMContentLoaded` y en `load`, por si algún
+   navegador se adelanta mientras cargan las imágenes.
+4. **Se aparta si el visitante ya empezó a moverse.** Al primer `wheel`,
+   `touchstart`, `keydown` o `mousedown` deja de llevar la página arriba: lo
+   contrario sería arrebatarle el scroll a quien ya estaba leyendo.
+
+Va en el `<head>` y no en `main.js` a propósito: tiene que ejecutarse antes del
+primer pintado, igual que el script del tema. Si se moviera a `main.js`, el
+salto a la sección ya habría ocurrido y se vería un tirón.
+
+**Consecuencia asumida:** al volver con el botón «atrás» la página también
+empieza arriba. Para una landing es coherente con la regla; si algún día
+molesta, lo que hay que ablandar es el punto 2, no el 1.
+
+Los clics **dentro** de la página no se ven afectados: el menú, el pie y los
+botones siguen bajando a su sección con el scroll suave de siempre.
+
+---
+
+## Los tres ejes de la oferta (y por qué no se pisan)
+
+El sitio ordena lo mismo de tres maneras distintas. Es deliberado: cada una
+responde a una pregunta diferente, y borrar cualquiera de ellas deja un hueco.
+
+| Sección | Ordena por | Pregunta que responde |
+|---|---|---|
+| `#areas` | **área del negocio** | «¿esto sirve para lo mío?» |
+| `#soluciones` | capacidad técnica | «¿saben hacer lo que necesito?» |
+| `#sectores` | industria | «¿entienden mi contexto?» |
+
+`#areas` es la única de las tres que habla el vocabulario con el que llega el
+visitante — compras, bodega, caja, asistencia — en vez del vocabulario del
+proveedor. Por eso va arriba.
+
+**Cinco de las nueve fichas llevan a Orion ERP, y está bien.** Ventas,
+compras, inventario y obras son módulos del mismo sistema; cada una abre su
+propio panel, con su propio texto y su propia captura de esa pantalla. Son más
+puertas de entrada sin inventar productos, y de paso sostienen la promesa del
+hero: todo en un solo lugar. Si algún día eso cambia, lo que hay que tocar es
+el `href` de la ficha y el botón de su panel — nada más.
+
+**El panel abierto no se guarda en la URL.** El script del `<head>` limpia el
+hash en cada carga para que la página siempre empiece en la cabecera (ver el
+apartado anterior); escribir el panel en la URL iría contra eso.
+
+**Orion Biometría no tiene capturas** — su ficha usa la maqueta CSS del
+celular, no imágenes reales — así que su panel lleva la clase
+`.apanel--noart` y va sin imagen, con el texto ocupando las dos columnas. El
+día que haya una captura real, basta añadir el `<figure class="apanel__art">`
+y quitar esa clase: no hay que tocar ni CSS ni JS.
+
+**`.apanel[hidden] { display:none }` no es decorativo.** `.apanel` es
+`display:grid`, que gana al `display:none` que el navegador aplica a `[hidden]`;
+sin esa línea los nueve paneles se dibujan a la vez.
 
 ---
 
@@ -109,6 +182,9 @@ nueva a una galería, ponle su `data-cap` en las dos páginas.
 
 | Quiero cambiar… | Está en… |
 |---|---|
+| Las áreas de `#areas` (nombre, ícono, a qué proyecto llevan) | `index.html` **y** `en/index.html`, lista `.areas` — el `data-area` de la ficha debe coincidir con el id del panel (`a3` ↔ `apanel-a3`) |
+| El texto y la captura de un panel de área | `index.html` **y** `en/index.html`, los `<article class="apanel">` — las viñetas se condensan de las `.feats` de la ficha, **no se inventan** |
+| Añadir o quitar un área | Una `<li class="card area">` y su `<article class="apanel">` en las dos páginas. El CSS ya contempla el número impar: la última ficha ocupa la fila entera |
 | Textos, títulos, bullets de cada producto | `index.html` **y** `en/index.html`, secciones `#producto-1` … `#producto-6` |
 | El índice de productos (las tarjetas 01–06) | `index.html`, lista `.pindex` |
 | Estado de un producto (En producción / Prototipo) | `index.html`, la píldora dentro de `.product__bar` |

@@ -60,6 +60,69 @@
     });
   }
 
+  /* ---------- Áreas del negocio ----------
+     La rejilla de #areas abre el detalle sin mover al visitante de sitio.
+     Las fichas son enlaces reales a #producto-N: sin JavaScript el clic baja a
+     la ficha completa, que es un destino válido. Aquí solo se intercepta para
+     mostrar el panel. No se toca el hash ni el historial: el script del <head>
+     los limpia en cada carga para que la página empiece siempre en la
+     cabecera, y escribir el panel en la URL lo contradiría. */
+  function initAreas() {
+    var seccion = document.getElementById('areas');
+    if (!seccion) return;
+
+    var fichas = seccion.querySelectorAll('[data-area]');
+    if (!fichas.length) return;
+
+    var reducido = window.matchMedia &&
+                   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function abrir(id) {
+      for (var i = 0; i < fichas.length; i++) {
+        var ficha = fichas[i];
+        var activa = ficha.getAttribute('data-area') === id;
+        var panel = document.getElementById('apanel-' + ficha.getAttribute('data-area'));
+
+        ficha.setAttribute('aria-expanded', String(activa));
+        ficha.parentNode.classList.toggle('is-active', activa);
+        if (panel) panel.hidden = !activa;
+      }
+    }
+
+    for (var i = 0; i < fichas.length; i++) {
+      (function (ficha) {
+        ficha.addEventListener('click', function (event) {
+          var id = ficha.getAttribute('data-area');
+          var panel = document.getElementById('apanel-' + id);
+          if (!panel) return;            // sin panel, el enlace hace su trabajo
+
+          event.preventDefault();
+
+          /* Segundo clic sobre la ficha abierta: la cierra. Es el gesto que
+             espera cualquiera ante un acordeón, y el camino hacia adelante no
+             se pierde — sigue estando el botón dentro del panel. */
+          if (ficha.getAttribute('aria-expanded') === 'true') {
+            ficha.setAttribute('aria-expanded', 'false');
+            ficha.parentNode.classList.remove('is-active');
+            panel.hidden = true;
+            return;
+          }
+
+          abrir(id);
+
+          /* En móvil la rejilla ocupa nueve filas y el panel queda fuera de la
+             pantalla: sin esto, el clic parecería no haber hecho nada. */
+          if (panel.scrollIntoView) {
+            panel.scrollIntoView({
+              block: 'nearest',
+              behavior: reducido ? 'auto' : 'smooth'
+            });
+          }
+        });
+      })(fichas[i]);
+    }
+  }
+
   /* ---------- Contadores de la banda de métricas ---------- */
   function initCounters() {
     var band = document.getElementById('metrics');
@@ -535,6 +598,7 @@
 
   initTheme();
   initMobileNav();
+  initAreas();
   initCounters();
   initSpotlight();
   initShots();
