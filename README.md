@@ -133,6 +133,14 @@ el `href` de la ficha y el botón de su panel — nada más.
 
 **Al cargar no hay ningún panel abierto**, a petición de Adrián: la sección se presenta como una cuadrícula limpia de nueve íconos y no como una ficha ya desplegada. A cambio se pierde la pista de que las fichas se abren, así que la bajada lo dice («Elige un área…») y el chip del ícono reacciona al cursor. Si algún día conviene volver a abrir una por defecto, basta quitar `hidden` de su `<article>` y poner `aria-expanded="true"` e `is-active` en su ficha, en las dos páginas.
 
+**La apertura está animada a mano, no con una transición CSS.** No se puede transicionar hacia `height:auto`: hay que medir el alto real una vez pintado el panel, y eso obliga a pasar por `Element.animate()`. Tres detalles que no son opcionales:
+
+- **Se animan también el relleno y los bordes.** Con `box-sizing:border-box`, un alto de 0 no esconde el `padding:1.5rem` ni el borde superior de 3px: quedaría una franja de unos 50px al cerrar.
+- **`overflow:hidden` solo mientras dura el movimiento** (`.apanel.is-animando`). Dejarlo fijo recortaría el anillo de foco del botón del panel.
+- **Al cambiar de área el panel nuevo arranca con el alto del anterior**, así el recuadro parece transformarse en lugar de cerrarse y volver a abrirse. El panel viejo se oculta de golpe en ese caso, no animado.
+
+El contenido entra escalonado por CSS (`@keyframes apanelEntra`, 60ms entre elemento y elemento) y el chip de la ficha activa lanza un anillo hacia fuera (`@keyframes areaAnillo`), que es lo que ata visualmente la ficha con el panel. Todo ello se apaga con `prefers-reduced-motion`, por dos vías a propósito: el JS no anima el alto y el CSS anula los `@keyframes`.
+
 **El panel abierto no se guarda en la URL.** El script del `<head>` limpia el
 hash en cada carga para que la página siempre empiece en la cabecera (ver el
 apartado anterior); escribir el panel en la URL iría contra eso.

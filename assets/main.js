@@ -66,7 +66,12 @@
      la ficha completa, que es un destino válido. Aquí solo se intercepta para
      mostrar el panel. No se toca el hash ni el historial: el script del <head>
      los limpia en cada carga para que la página empiece siempre en la
-     cabecera, y escribir el panel en la URL lo contradiría. */
+     cabecera, y escribir el panel en la URL lo contradiría.
+
+     El alto se anima a mano y no con una transición CSS porque no se puede
+     transicionar hacia `auto`: hay que medir el alto real una vez pintado. Se
+     animan también el relleno y el borde superior; si no, al cerrar quedaría
+     una franja de 3.5rem visible, que es lo que ocupan aunque el alto sea 0. */
   function initAreas() {
     var seccion = document.getElementById('areas');
     if (!seccion) return;
@@ -76,16 +81,78 @@
 
     var reducido = window.matchMedia &&
                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Si el navegador no trae la API de animaciones, todo sigue funcionando:
+    // el panel simplemente aparece y desaparece sin crecer.
+    var anima = !reducido && typeof Element !== 'undefined' &&
+                typeof Element.prototype.animate === 'function';
 
-    function abrir(id) {
+    var SUAVE = 'cubic-bezier(.22,1,.36,1)';   // frena despacio al final
+    var abierto = null;
+
+    function alto(panel) {
+      return panel.getBoundingClientRect().height;
+    }
+
+    // `desde` permite encadenar: al cambiar de área, el panel nuevo arranca
+    // con el alto que tenía el anterior, así el recuadro parece transformarse
+    // en vez de cerrarse y volver a abrirse.
+    function mostrar(panel, desde) {
+      panel.hidden = false;
+      panel.classList.add('is-open');
+      abierto = panel;
+
+      if (!anima) return;
+
+      var fin = alto(panel);
+      var arranca = typeof desde === 'number' ? desde : 0;
+      if (Math.abs(fin - arranca) < 2) return;
+
+      panel.classList.add('is-animando');
+
+      var cuadros = arranca === 0
+        ? [{ height: '0px', paddingTop: '0px', paddingBottom: '0px',
+             borderTopWidth: '0px', borderBottomWidth: '0px', opacity: 0 },
+           { height: fin + 'px', opacity: 1 }]
+        : [{ height: arranca + 'px' }, { height: fin + 'px' }];
+
+      var mov = panel.animate(cuadros, {
+        duration: arranca === 0 ? 420 : 340,
+        easing: SUAVE
+      });
+      mov.onfinish = function () { panel.classList.remove('is-animando'); };
+    }
+
+    function ocultar(panel, deGolpe) {
+      panel.classList.remove('is-open');
+      if (panel === abierto) abierto = null;
+
+      if (!anima || deGolpe) {
+        panel.hidden = true;
+        panel.classList.remove('is-animando');
+        return;
+      }
+
+      var desde = alto(panel);
+      panel.classList.add('is-animando');
+
+      var mov = panel.animate([
+        { height: desde + 'px', opacity: 1 },
+        { height: '0px', paddingTop: '0px', paddingBottom: '0px',
+          borderTopWidth: '0px', borderBottomWidth: '0px', opacity: 0 }
+      ], { duration: 260, easing: 'cubic-bezier(.4,0,.7,1)' });
+
+      mov.onfinish = function () {
+        panel.hidden = true;
+        panel.classList.remove('is-animando');
+      };
+    }
+
+    function marcar(id) {
       for (var i = 0; i < fichas.length; i++) {
         var ficha = fichas[i];
-        var activa = ficha.getAttribute('data-area') === id;
-        var panel = document.getElementById('apanel-' + ficha.getAttribute('data-area'));
-
+        var activa = id !== null && ficha.getAttribute('data-area') === id;
         ficha.setAttribute('aria-expanded', String(activa));
         ficha.parentNode.classList.toggle('is-active', activa);
-        if (panel) panel.hidden = !activa;
       }
     }
 
@@ -102,22 +169,30 @@
              espera cualquiera ante un acordeón, y el camino hacia adelante no
              se pierde — sigue estando el botón dentro del panel. */
           if (ficha.getAttribute('aria-expanded') === 'true') {
-            ficha.setAttribute('aria-expanded', 'false');
-            ficha.parentNode.classList.remove('is-active');
-            panel.hidden = true;
+            marcar(null);
+            ocultar(panel);
             return;
           }
 
-          abrir(id);
+          var previo = abierto;
+          var puente = previo && previo !== panel ? alto(previo) : 0;
+          if (previo && previo !== panel) ocultar(previo, true);
 
-          /* En móvil la rejilla ocupa nueve filas y el panel queda fuera de la
-             pantalla: sin esto, el clic parecería no haber hecho nada. */
-          if (panel.scrollIntoView) {
+          marcar(id);
+          mostrar(panel, puente);
+
+          /* En móvil la rejilla ocupa cinco filas y el panel puede quedar fuera
+             de la pantalla: sin esto, el clic parecería no haber hecho nada. Se
+             espera a que termine de crecer, porque a mitad de camino el alto
+             todavía no es el definitivo y el cálculo sale corto. */
+          if (!panel.scrollIntoView) return;
+          var acercar = function () {
             panel.scrollIntoView({
               block: 'nearest',
               behavior: reducido ? 'auto' : 'smooth'
             });
-          }
+          };
+          if (anima) window.setTimeout(acercar, 440); else acercar();
         });
       })(fichas[i]);
     }

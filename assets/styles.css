@@ -323,6 +323,19 @@ img,svg { max-width:100%; }
    visualmente la ficha con el panel que se abrió debajo, que en escritorio
    puede quedar dos filas más abajo. */
 .area.is-active { border-color:var(--p-600); }
+/* El anillo sale del chip hacia fuera una sola vez al activarlo: es lo que da
+   la sensación de que la ficha «se abre» hacia el panel, en vez de que el
+   panel aparezca por su cuenta más abajo. */
+.area__ico { position:relative; }
+.area__ico::after {
+  content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  box-shadow:0 0 0 0 rgba(124,58,237,.5); opacity:0;
+}
+.area.is-active .area__ico::after { animation:areaAnillo .62s ease-out; }
+@keyframes areaAnillo {
+  from { opacity:1; box-shadow:0 0 0 0 rgba(124,58,237,.5); }
+  to   { opacity:0; box-shadow:0 0 0 14px rgba(124,58,237,0); }
+}
 .area.is-active .area__ico {
   background-image:var(--brand-gradient); background-color:transparent;
   border-color:transparent; color:#fff;
@@ -339,6 +352,9 @@ img,svg { max-width:100%; }
 /* `display:grid` gana al `display:none` que el navegador aplica a [hidden]:
    sin esta línea los nueve paneles se dibujan a la vez. */
 .apanel[hidden] { display:none; }
+/* Solo mientras el panel crece o se encoge. Fuera de la animación se quita,
+   porque recortar en reposo cortaría el anillo del foco del botón. */
+.apanel.is-animando { overflow:hidden; }
 @media (min-width: 900px) { .apanel { grid-template-columns:1.05fr .95fr; align-items:center; } }
 .apanel__copy { display:grid; gap:.8rem; align-content:start; justify-items:start; }
 .apanel__copy h3 { font-size:1.2rem; max-width:24ch; }
@@ -361,6 +377,19 @@ img,svg { max-width:100%; }
   background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-sm);
 }
 .apanel__art figcaption { font-size:.75rem; color:var(--text-2); text-align:center; }
+
+/* El contenido entra detrás del panel, no con él: primero se abre el hueco y
+   luego van cayendo la etiqueta, el título, las viñetas y el botón. Son 60ms
+   de diferencia entre uno y otro — lo justo para que se lea como un gesto
+   encadenado y no como cuatro cosas apareciendo a la vez. */
+@keyframes apanelEntra { from { opacity:0; transform:translateY(10px); } }
+.apanel.is-open .apanel__copy > *,
+.apanel.is-open .apanel__art { animation:apanelEntra .45s cubic-bezier(.22,1,.36,1) both; }
+.apanel.is-open .apanel__copy > *:nth-child(1) { animation-delay:.06s; }
+.apanel.is-open .apanel__copy > *:nth-child(2) { animation-delay:.12s; }
+.apanel.is-open .apanel__copy > *:nth-child(3) { animation-delay:.18s; }
+.apanel.is-open .apanel__copy > *:nth-child(4) { animation-delay:.24s; }
+.apanel.is-open .apanel__art { animation-delay:.14s; }
 
 .area-more {
   display:flex; align-items:center; justify-content:space-between; gap:1rem;
@@ -1109,6 +1138,11 @@ img,svg { max-width:100%; }
   .ring { animation:none; }
   .btn:hover, .sector:hover, .pcard:hover,
   .area:hover, .area-more:hover, .area-more:hover .ico { transform:none; }
+  /* El panel aparece y desaparece sin crecer; el JS también lo detecta y se
+     salta la animación de alto, pero esto cubre el caso de que no llegue. */
+  .apanel.is-open .apanel__copy > *,
+  .apanel.is-open .apanel__art { animation:none; }
+  .area.is-active .area__ico::after { animation:none; }
   .marquee { -webkit-mask-image:none; mask-image:none; }
   .marquee__track { animation:none; width:auto; flex-wrap:wrap; justify-content:center; }
   .marquee__group { flex-wrap:wrap; justify-content:center; padding-right:0; row-gap:1.25rem; }
