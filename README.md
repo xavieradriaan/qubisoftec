@@ -131,6 +131,8 @@ puertas de entrada sin inventar productos, y de paso sostienen la promesa del
 hero: todo en un solo lugar. Si algún día eso cambia, lo que hay que tocar es
 el `href` de la ficha y el botón de su panel — nada más.
 
+**Al cargar no hay ningún panel abierto**, a petición de Adrián: la sección se presenta como una cuadrícula limpia de nueve íconos y no como una ficha ya desplegada. A cambio se pierde la pista de que las fichas se abren, así que la bajada lo dice («Elige un área…») y el chip del ícono reacciona al cursor. Si algún día conviene volver a abrir una por defecto, basta quitar `hidden` de su `<article>` y poner `aria-expanded="true"` e `is-active` en su ficha, en las dos páginas.
+
 **El panel abierto no se guarda en la URL.** El script del `<head>` limpia el
 hash en cada carga para que la página siempre empiece en la cabecera (ver el
 apartado anterior); escribir el panel en la URL iría contra eso.

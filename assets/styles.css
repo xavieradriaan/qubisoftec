@@ -314,6 +314,11 @@ img,svg { max-width:100%; }
   color:var(--p-400); transition:background-color .2s, color .2s, border-color .2s;
 }
 .area__ico .ico { width:20px; height:20px; }
+/* Al cargar no hay ningún panel abierto, así que nada más que la rejilla dice
+   que las fichas hacen algo. El chip reacciona al cursor — un paso corto hacia
+   el degradado que toma al activarse — y eso basta como señal sin añadir
+   flechas ni signos que ensucien la cuadrícula. */
+.area:hover .area__ico { border-color:var(--p-400); color:var(--p-500); }
 /* La ficha activa toma el degradado de marca en el chip: es lo único que ata
    visualmente la ficha con el panel que se abrió debajo, que en escritorio
    puede quedar dos filas más abajo. */
